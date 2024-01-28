@@ -9,4 +9,6 @@ public class BiddingRoom : BaseEntity
 
     public required string AuctionId { get; set; }
     public Auction Auction { get; set; } = null!;
+
+    public ICollection<Bid> Bids { get; set; } = [];
 }
