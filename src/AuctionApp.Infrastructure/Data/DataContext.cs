@@ -20,4 +20,10 @@ public class DataContext : IdentityDbContext<User>
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema("AuctionDb");
     }
+
+    public DbSet<Auction> Auctions { get; set; } = null!;
+    public DbSet<Bid> Bids { get; set; } = null!;
+    public DbSet<BiddingRoom> BiddingRooms { get; set; } = null!;
+    public DbSet<Invoice> Invoices { get; set; } = null!;
+    public DbSet<Payment> Payments { get; set; } = null!;
 }
