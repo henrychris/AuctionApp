@@ -14,6 +14,6 @@ public class Bid : BaseEntity
     public required string UserId { get; set; }
     public User User { get; set; } = null!;
 
-    public required string RoomId { get; set; }
+    public required string BiddingRoomId { get; set; }
     public BiddingRoom BiddingRoom { get; set; } = null!;
 }
