@@ -30,7 +30,7 @@ namespace AuctionApp.Application.Features.Auctions.DeleteAuction
                 return SharedErrors<Domain.Entities.Auction>.NotFound;
             }
 
-            if (auction.Status == Domain.Enums.AuctionStatus.InProgress)
+            if (auction.IsInProgress())
             {
                 logger.LogError("Auction with id {id} cannot be deleted because it is in progress.", request.AuctionId);
                 return Errors.Auction.CannotDeleteInProgressAuction;

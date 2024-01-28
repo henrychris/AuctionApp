@@ -48,4 +48,9 @@ public class Auction : BaseEntity
     /// The current state of the auction.
     /// </summary>
     public AuctionStatus Status { get; set; } = AuctionStatus.NotStarted;
+
+    public bool IsInProgress()
+    {
+        return Status == AuctionStatus.InProgress;
+    }
 }
