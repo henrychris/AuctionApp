@@ -9,6 +9,8 @@ public static class ServiceConfiguration
     {
         services.AddScoped<ICurrentUser, CurrentUser>();
         services.AddScoped<IAuctionService, AuctionService>();
+        services.AddScoped<IBidService, BidService>();
+        services.AddScoped<IRoomService, RoomService>();
         services.AddSingleton(TimeProvider.System);
     }
 }

@@ -45,6 +45,15 @@ public class Auction : BaseEntity
     public int HighestBidAmountInKobo { get; set; }
 
     /// <summary>
+    /// The id of the user who placed the highest bid.
+    ///
+    /// <remarks>
+    /// This is nullable because the auction may not have started yet, or there may not be any bids yet. Make sure this ID belongs to a valid user.
+    /// </remarks>
+    /// </summary>
+    public string? HighestBidderId { get; set; }
+
+    /// <summary>
     /// The current state of the auction.
     /// </summary>
     public AuctionStatus Status { get; set; } = AuctionStatus.NotStarted;
