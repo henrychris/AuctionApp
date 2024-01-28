@@ -50,6 +50,12 @@ namespace AuctionApp.Application.Features.Auctions.UpdateAuction
                 return SharedErrors<Domain.Entities.Auction>.NotFound;
             }
 
+            if (auction.IsInProgress())
+            {
+                logger.LogError("Auction with id {id} is in progress.", request.AuctionId);
+                return Errors.Auction.CannotUpdateAuctionInProgress;
+            }
+
             auction.Name = request.Name ?? auction.Name;
             auction.StartingTime = request.StartingTime ?? auction.StartingTime;
             auction.ClosingTime = request.ClosingTime ?? auction.ClosingTime;
