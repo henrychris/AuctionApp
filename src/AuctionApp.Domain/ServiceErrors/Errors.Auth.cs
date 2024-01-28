@@ -1,5 +1,3 @@
-using ErrorOr;
-
 namespace AuctionApp.Domain.ServiceErrors;
 
 public static partial class Errors

@@ -1,7 +1,5 @@
 using AuctionApp.Application.ApiResponses;
 
-using ErrorOr;
-
 using FluentValidation.Results;
 
 namespace AuctionApp.Application.Extensions;

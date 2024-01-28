@@ -1,7 +1,5 @@
 using AuctionApp.Domain.Constants;
 
-using ErrorOr;
-
 namespace AuctionApp.Domain.ServiceErrors;
 
 public static class SharedErrors<T>
