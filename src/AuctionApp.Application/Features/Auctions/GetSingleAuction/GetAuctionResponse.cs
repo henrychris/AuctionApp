@@ -1,4 +1,4 @@
-namespace AuctionApp.Application.Features.Auction.GetSingleAuction;
+namespace AuctionApp.Application.Features.Auctions.GetSingleAuction;
 
 public class GetAuctionResponse
 {

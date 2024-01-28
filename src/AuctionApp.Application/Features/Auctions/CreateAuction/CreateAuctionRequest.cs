@@ -7,7 +7,7 @@ using MediatR;
 
 using Microsoft.Extensions.Logging;
 
-namespace AuctionApp.Application.Features.Auction.CreateAuction;
+namespace AuctionApp.Application.Features.Auctions.CreateAuction;
 
 public class CreateAuctionRequest : IRequest<ErrorOr<CreateAuctionResponse>>
 {

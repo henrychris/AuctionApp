@@ -2,10 +2,10 @@ using System.Net.Mime;
 
 using AuctionApp.Application.ApiResponses;
 using AuctionApp.Application.Extensions;
-using AuctionApp.Application.Features.Auction.CreateAuction;
-using AuctionApp.Application.Features.Auction.GetAllAuctions;
-using AuctionApp.Application.Features.Auction.GetSingleAuction;
+using AuctionApp.Application.Features.Auctions.CreateAuction;
 using AuctionApp.Application.Features.Auctions.DeleteAuction;
+using AuctionApp.Application.Features.Auctions.GetAllAuctions;
+using AuctionApp.Application.Features.Auctions.GetSingleAuction;
 using AuctionApp.Application.Features.Auctions.UpdateAuction;
 
 using AuctionApp.Domain.Constants;
@@ -24,7 +24,6 @@ namespace AuctionApp.Host.Controllers
     {
         [Authorize(Roles = Roles.ADMIN)]
         [HttpPost]
-        [AllowAnonymous]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<CreateAuctionResponse>), StatusCodes.Status200OK)]

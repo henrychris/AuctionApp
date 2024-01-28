@@ -1,8 +1,8 @@
-using AuctionApp.Application.Features.Auction.CreateAuction;
-using AuctionApp.Application.Features.Auction.GetSingleAuction;
+using AuctionApp.Application.Features.Auctions.CreateAuction;
+using AuctionApp.Application.Features.Auctions.GetSingleAuction;
 using AuctionApp.Common;
 
-namespace AuctionApp.Application.Features.Auction
+namespace AuctionApp.Application.Features.Auctions
 {
     public static class AuctionMapper
     {

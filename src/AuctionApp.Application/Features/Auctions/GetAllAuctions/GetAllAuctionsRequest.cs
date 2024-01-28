@@ -1,12 +1,12 @@
 using AuctionApp.Application.ApiResponses;
 using AuctionApp.Application.Contracts;
-using AuctionApp.Application.Features.Auction.GetSingleAuction;
+using AuctionApp.Application.Features.Auctions.GetSingleAuction;
 
 using MediatR;
 
 using Microsoft.Extensions.Logging;
 
-namespace AuctionApp.Application.Features.Auction.GetAllAuctions;
+namespace AuctionApp.Application.Features.Auctions.GetAllAuctions;
 
 public class GetAllAuctionsRequest : QueryStringParameters, IRequest<ErrorOr<PagedResponse<GetAuctionResponse>>>
 {

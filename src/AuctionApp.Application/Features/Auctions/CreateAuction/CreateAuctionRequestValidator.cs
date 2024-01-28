@@ -1,9 +1,8 @@
 using AuctionApp.Application.Extensions;
-using AuctionApp.Domain.Constants;
 
 using FluentValidation;
 
-namespace AuctionApp.Application.Features.Auction.CreateAuction;
+namespace AuctionApp.Application.Features.Auctions.CreateAuction;
 
 public class CreateAuctionRequestValidator : AbstractValidator<CreateAuctionRequest>
 {

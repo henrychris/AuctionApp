@@ -21,4 +21,7 @@ await app.SeedDatabase();
 app.Run();
 
 // for integration tests
-public partial class Program;
+namespace AuctionApp.Host
+{
+    public partial class Program;
+}

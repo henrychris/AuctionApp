@@ -1,4 +1,4 @@
-namespace AuctionApp.Application.Features.Auction.CreateAuction;
+namespace AuctionApp.Application.Features.Auctions.CreateAuction;
 
 public class CreateAuctionResponse
 {
