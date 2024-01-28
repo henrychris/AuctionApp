@@ -5,12 +5,15 @@ namespace AuctionApp.Infrastructure.Services;
 
 public class CurrentUser(IHttpContextAccessor httpContextAccessor) : ICurrentUser
 {
-    public string? UserId =>
-        httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.USER_ID)?.Value;
+    public string UserId =>
+        httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.USER_ID)?.Value ??
+        throw new InvalidOperationException("User not authorised.");
 
-    public string? Email =>
-        httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.EMAIL)?.Value;
+    public string Email =>
+        httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.EMAIL)?.Value ??
+        throw new InvalidOperationException("User not authorised.");
 
-    public string? Role =>
-        httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.ROLE)?.Value;
+    public string Role =>
+        httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.ROLE)?.Value ??
+        throw new InvalidOperationException("User not authorised.");
 }
