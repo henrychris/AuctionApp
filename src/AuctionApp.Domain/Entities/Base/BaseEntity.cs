@@ -20,5 +20,5 @@ public abstract class BaseEntity
     /// <summary>
     /// The last time this entity was modified.
     /// </summary>
-    public required DateTime? LastModifiedDate { get; set; }
+    public DateTime LastModifiedDate { get; set; } = DateTime.UtcNow;
 }
