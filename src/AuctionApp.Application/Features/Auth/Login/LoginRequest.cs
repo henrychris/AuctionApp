@@ -46,7 +46,9 @@ public class LoginRequestHandler(
             logger.LogInformation("User {userId} logged in successfully.", user.Id);
             return new UserAuthResponse
             {
-                Id = user.Id, Role = user.Role, AccessToken = GenerateUserToken(user.Email!, user.Role, user.Id)
+                Id = user.Id,
+                Role = user.Role,
+                AccessToken = GenerateUserToken(user.Email!, user.Role, user.Id)
             };
         }
 

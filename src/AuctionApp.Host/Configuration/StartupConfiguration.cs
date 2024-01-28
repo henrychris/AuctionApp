@@ -45,7 +45,7 @@ public static class StartupConfiguration
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assemblyToScan));
         services.AddValidatorsFromAssembly(assemblyToScan);
     }
-    
+
     public static void RegisterMiddleware(this WebApplication app)
     {
         app.UseHttpsRedirection();
