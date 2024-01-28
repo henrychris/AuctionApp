@@ -13,10 +13,15 @@ namespace AuctionApp.Infrastructure.Services
             return await context.BiddingRooms.FindAsync(biddingRoomId);
         }
 
-        // get room and include auction
         public async Task<BiddingRoom?> GetRoomWithAuctionAsync(string biddingRoomId)
         {
             return await context.BiddingRooms.Include(r => r.Auction).FirstOrDefaultAsync(r => r.Id == biddingRoomId);
+        }
+
+        public async Task CreateRoomAsync(BiddingRoom room)
+        {
+            await context.BiddingRooms.AddAsync(room);
+            await context.SaveChangesAsync();
         }
     }
 }

@@ -7,5 +7,6 @@ namespace AuctionApp.Application.Contracts
     {
         Task<BiddingRoom?> GetRoomAsync(string biddingRoomId);
         Task<BiddingRoom?> GetRoomWithAuctionAsync(string biddingRoomId);
+        Task CreateRoomAsync(BiddingRoom room);
     }
 }
