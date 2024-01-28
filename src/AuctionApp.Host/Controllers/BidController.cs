@@ -17,7 +17,6 @@ namespace AuctionApp.Host.Controllers
     {
         [Authorize(Roles = Roles.USER)]
         [HttpPost("new")]
-        [AllowAnonymous]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<MakeBidResponse>), StatusCodes.Status200OK)]

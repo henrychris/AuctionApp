@@ -39,6 +39,7 @@ namespace AuctionApp.Host.Controllers
                 ReturnErrorResponse);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ApiResponse<GetAuctionResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetSingleAuction(string id)
@@ -79,7 +80,7 @@ namespace AuctionApp.Host.Controllers
             return result.Match(_ => NoContent(), ReturnErrorResponse);
         }
 
-        [Authorize(Roles = Roles.ADMIN)]
+        [Authorize]
         [HttpGet("all")]
         [ProducesResponseType(typeof(ApiResponse<PagedResponse<GetAuctionResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAuctions([FromQuery] GetAllAuctionsRequest request)
