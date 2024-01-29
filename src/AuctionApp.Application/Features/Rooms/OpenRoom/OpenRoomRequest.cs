@@ -1,5 +1,4 @@
 using AuctionApp.Application.Contracts;
-using AuctionApp.Common;
 using AuctionApp.Domain.Entities;
 using AuctionApp.Domain.ServiceErrors;
 

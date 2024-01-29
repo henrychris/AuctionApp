@@ -1,5 +1,3 @@
-using AuctionApp.Domain.Entities.Hub;
-
 namespace AuctionApp.Application.Contracts.SignalRClients;
 
 public interface IAuctionRoomClient

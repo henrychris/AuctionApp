@@ -1,8 +1,6 @@
 using AuctionApp.Application.Contracts;
 using AuctionApp.Domain.ServiceErrors;
 
-using FluentValidation;
-
 using MediatR;
 
 using Microsoft.Extensions.Logging;

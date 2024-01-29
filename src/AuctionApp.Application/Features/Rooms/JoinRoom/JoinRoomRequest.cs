@@ -4,7 +4,6 @@ using AuctionApp.Domain.ServiceErrors;
 
 using MediatR;
 
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
 namespace AuctionApp.Application.Features.Rooms.JoinRoom;

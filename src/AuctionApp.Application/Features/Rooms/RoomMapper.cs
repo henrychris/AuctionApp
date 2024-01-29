@@ -1,6 +1,5 @@
 using AuctionApp.Application.Features.Rooms.CreateRoom;
 using AuctionApp.Application.Features.Rooms.GetSingleRoom;
-using AuctionApp.Application.Features.Rooms.JoinRoom;
 using AuctionApp.Domain.Entities;
 
 namespace AuctionApp.Application.Features.Rooms;

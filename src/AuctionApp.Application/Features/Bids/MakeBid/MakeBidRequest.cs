@@ -1,4 +1,3 @@
-using AuctionApp.Application.ApiResponses;
 using AuctionApp.Application.Contracts;
 using AuctionApp.Application.Extensions;
 using AuctionApp.Common;
@@ -23,7 +22,7 @@ public class MakeBidRequest : IRequest<ErrorOr<MakeBidResponse>>
 {
     public required string ConnectionId { get; init; }
     public required int BidAmountInNaira { get; init; }
-    public required string RoomId { get; set; }
+    public required string RoomId { get; init; }
 }
 
 public class MakeBidRequestHandler(

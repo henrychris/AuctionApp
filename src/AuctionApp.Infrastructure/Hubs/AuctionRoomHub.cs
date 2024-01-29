@@ -1,8 +1,6 @@
 using System.Security.Claims;
 
-using AuctionApp.Application.Contracts;
 using AuctionApp.Domain.Constants;
-using AuctionApp.Domain.Entities;
 using AuctionApp.Domain.Entities.Hub;
 
 using Microsoft.AspNetCore.Authorization;
