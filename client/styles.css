@@ -104,6 +104,28 @@ body {
   border: none;
 }
 
+#auctionInfo {
+  margin-top: 10px;
+}
+
+#currentHighestPrice {
+  margin-bottom: 5px;
+}
+
+#highestPriceValue {
+  font-weight: bold;
+  color: #e74c3c; /* Stand out color for the highest price */
+}
+
+#auctionStatus {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#auctionStatusValue {
+  font-weight: bold;
+  color: #3498db;
+}
 /* Style for chatScreen section */
 #chatScreen {
   display: none;
@@ -140,7 +162,35 @@ body {
   color: #fff;
 }
 
+#messageInput {
+  padding: 5px;
+  width: 80%;
+}
+
+#sendMessageButton {
+  padding: 8px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  margin-left: 5px;
+}
+
 #leaveRoom {
   background-color: #e74c3c;
   color: #fff;
+}
+
+#bidId {
+  padding: 5px;
+  width: 80%;
+}
+
+#bidButton {
+  padding: 8px;
+  cursor: pointer;
+  background-color: #f39c12;
+  color: #fff;
+  border: none;
+  margin-top: 10px;
 }

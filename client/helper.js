@@ -51,6 +51,25 @@ export async function leaveRoom(roomId, connectionId, token) {
   return false;
 }
 
+export async function makeBid(roomId, connectionId, bid, token) {
+  const res = await postDataAuth(
+    `${BASE_URL}/rooms/${roomId}/bid`,
+    {
+      connectionId: connectionId,
+      bidAmountInNaira: bid,
+    },
+    token
+  );
+
+  if (res.status === 200) {
+    console.log("bid");
+    return true;
+  }
+
+  console.log(res.json());
+  return false;
+}
+
 export async function postDataAuth(url = "", data = {}, token) {
   // Default options are marked with *
   const response = await fetch(url, {

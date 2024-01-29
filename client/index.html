@@ -20,6 +20,15 @@
 
     <div id="chatScreen" style="display: none">
       <h1 id="roomTitle"></h1>
+      <!-- Display Highest Price and Auction Status -->
+      <div id="auctionInfo" style="margin-top: 10px">
+        <h2 id="currentHighestPrice">
+          Current Highest Price: <span id="highestPriceValue">0 NGN</span>
+        </h2>
+        <h3 id="auctionStatus">
+          Auction Status: <span id="auctionStatusValue">In Progress</span>
+        </h3>
+      </div>
       <div id="messages"></div>
       <div>
         <input
@@ -28,8 +37,11 @@
           placeholder="Message"
           autocomplete="off"
         />
+        <button id="sendMessageButton">Send</button>
       </div>
       <button id="leaveRoom">Leave Room</button>
+      <input type="text" id="bidInput" placeholder="100NGN" />
+      <button id="bidButton">Bid</button>
     </div>
 
     <script type="module" src="./script.js"></script>
