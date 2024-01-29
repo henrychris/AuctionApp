@@ -46,6 +46,13 @@ async function startSignalRConnection() {
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
   });
 
+  connection.on("AuctionStarted", function (msg) {
+    console.log("hit");
+    const messages = document.getElementById("messages");
+    const user = `<span style="font-weight: bold">Admin: </span>`;
+    messages.innerHTML += `<p>${user}<span>${msg}</span></p>`;
+  });
+
   connection.on("UserJoined", function (msg) {
     const messages = document.getElementById("messages");
     const user = `<span style="font-weight: bold">${msg} </span>`;
