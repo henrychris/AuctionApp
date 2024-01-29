@@ -10,19 +10,15 @@ namespace AuctionApp.Application.Features.Bids
         {
             return new Bid
             {
-                AmountInKobo = CurrencyConverter.ConvertNairaToKobo(request.AmountInNaira),
-                BiddingRoomId = request.BiddingRoomId,
+                AmountInKobo = CurrencyConverter.ConvertNairaToKobo(request.BidAmountInNaira),
+                BiddingRoomId = request.RoomId,
                 UserId = userId!
             };
         }
 
         internal static MakeBidResponse CreateBidResponse(Bid bid)
         {
-            return new MakeBidResponse
-            {
-                BidId = bid.Id
-            };
+            return new MakeBidResponse { BidId = bid.Id };
         }
-
     }
 }

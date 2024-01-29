@@ -2,6 +2,7 @@ using System.Net.Mime;
 
 using AuctionApp.Application.ApiResponses;
 using AuctionApp.Application.Extensions;
+using AuctionApp.Application.Features.Bids.MakeBid;
 using AuctionApp.Application.Features.Rooms;
 using AuctionApp.Application.Features.Rooms.CreateRoom;
 using AuctionApp.Application.Features.Rooms.GetSingleRoom;
@@ -87,6 +88,19 @@ public class RoomsController(IMediator mediator) : BaseController
     {
         var result = await mediator.Send(new OpenRoomRequest { RoomId = id });
         return result.Match(_ => NoContent(),
+            ReturnErrorResponse);
+    }
+
+    [Authorize(Roles = Roles.USER)]
+    [HttpPost("{id}/bid")]
+    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Bid(string id, [FromBody] BidRequestDto requestDto)
+    {
+        var result = await mediator.Send(new MakeBidRequest
+        {
+            RoomId = id, ConnectionId = requestDto.ConnectionId, BidAmountInNaira = requestDto.BidAmountInNaira
+        });
+        return result.Match(_ => Ok(result.ToSuccessfulApiResponse()),
             ReturnErrorResponse);
     }
 }

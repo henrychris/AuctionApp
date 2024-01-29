@@ -1,7 +1,6 @@
-namespace AuctionApp.Application.Features.Bids.MakeBid
+namespace AuctionApp.Application.Features.Bids.MakeBid;
+
+public class MakeBidResponse
 {
-    public class MakeBidResponse
-    {
-        public required string BidId { get; set; }
-    }
+    public required string BidId { get; init; }
 }

@@ -1,5 +1,7 @@
 using AuctionApp.Application.Contracts;
+using AuctionApp.Common;
 using AuctionApp.Domain.Entities;
+using AuctionApp.Domain.Entities.Hub;
 using AuctionApp.Infrastructure.Data;
 using AuctionApp.Infrastructure.Hubs;
 
@@ -51,6 +53,15 @@ namespace AuctionApp.Infrastructure.Services
             Console.WriteLine($"Sending auction start message to clients in room {roomId}");
             await hubContext.Clients.Group(roomId).SendAsync("AuctionStarted",
                 $"Auction started for product {productName}. Starting Price: {startingPriceInNaira}NGN");
+        }
+
+        public async Task AnnounceNewHighestBidAsync(BiddingRoom room, Bid bid, string firstName)
+        {
+            var amountInNaira = CurrencyConverter.ConvertKoboToNaira(bid.AmountInKobo);
+            var message = new Message(firstName, $"New highest bid for {room.Auction.Name} is {amountInNaira}NGN");
+
+            Console.WriteLine($"Announcing new highest bid for room {room.Id}");
+            await hubContext.Clients.Group(room.Id).SendAsync("BidPlaced", message, amountInNaira);
         }
     }
 }

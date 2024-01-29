@@ -12,5 +12,7 @@ namespace AuctionApp.Application.Contracts
         Task RemoveUserFromRoom(string userId, string roomId, string connectionId);
         Task SendAuctionStartMessageToClientsAsync(string roomId, string productName,
                                                    decimal startingPriceInNaira);
+
+        Task AnnounceNewHighestBidAsync(BiddingRoom room, Bid bid, string firstName);
     }
 }

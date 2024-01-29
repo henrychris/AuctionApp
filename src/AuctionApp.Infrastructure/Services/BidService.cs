@@ -31,6 +31,5 @@ namespace AuctionApp.Infrastructure.Services
         {
             return room.Auction.HighestBidderId == userId;
         }
-
     }
 }

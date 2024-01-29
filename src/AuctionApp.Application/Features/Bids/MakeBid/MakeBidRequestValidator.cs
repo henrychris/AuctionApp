@@ -6,11 +6,8 @@ public class MakeBidRequestValidator : AbstractValidator<MakeBidRequest>
 {
     public MakeBidRequestValidator()
     {
-        RuleFor(x => x.AmountInNaira)
-            .GreaterThan(0)
-            .WithMessage("Bid amount must be greater than 0");
-
-        RuleFor(x => x.BiddingRoomId)
-            .NotEmpty();
+        RuleFor(x => x.ConnectionId).NotEmpty();
+        RuleFor(x => x.BidAmountInNaira).GreaterThan(0);
+        RuleFor(x => x.RoomId).NotEmpty();
     }
 }

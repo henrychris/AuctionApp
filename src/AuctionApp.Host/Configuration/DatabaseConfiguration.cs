@@ -90,7 +90,7 @@ public static class DatabaseConfiguration
     {
         var biddingRoom = new BiddingRoom
         {
-            Id = "biddingRoom1", AuctionId = "auction1", Status = RoomStatus.Closed, Auction = auction
+            Id = "biddingRoom1", AuctionId = "auction1", Status = RoomStatus.Open, Auction = auction
         };
         await context.BiddingRooms.AddAsync(biddingRoom);
         Console.WriteLine("Bidding room seeding complete.");
@@ -105,7 +105,7 @@ public static class DatabaseConfiguration
             StartingPriceInKobo = 1000000,
             StartingTime = DateTime.UtcNow,
             ClosingTime = DateTime.UtcNow.AddDays(1),
-            Status = AuctionStatus.NotStarted
+            Status = AuctionStatus.InProgress
         };
 
         await context.Auctions.AddAsync(auction);
