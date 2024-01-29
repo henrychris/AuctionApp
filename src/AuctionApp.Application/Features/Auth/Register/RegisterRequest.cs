@@ -66,7 +66,7 @@ public class RegisterRequestHandler(
                 {
                     Id = newUser.Id,
                     Role = newUser.Role,
-                    AccessToken = GenerateUserToken(newUser.Email!, newUser.Role, newUser.Id)
+                    AccessToken = GenerateUserToken(newUser.Email!, newUser.Role, newUser.Id, newUser.FirstName)
                 };
             }
             catch (Exception)
@@ -91,14 +91,17 @@ public class RegisterRequestHandler(
         return errors;
     }
 
-    private string GenerateUserToken(string emailAddress, string userRole, string userId)
+    private string GenerateUserToken(string emailAddress, string userRole, string userId, string firstName)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey!));
 
         var claims = new List<Claim>
         {
-            new(JwtClaims.EMAIL, emailAddress), new(JwtClaims.USER_ID, userId), new(JwtClaims.ROLE, userRole)
+            new(JwtClaims.EMAIL, emailAddress),
+            new(JwtClaims.USER_ID, userId),
+            new(JwtClaims.ROLE, userRole),
+            new(JwtClaims.FIRST_NAME, firstName)
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor

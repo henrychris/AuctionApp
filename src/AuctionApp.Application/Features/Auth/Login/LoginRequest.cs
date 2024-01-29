@@ -48,7 +48,7 @@ public class LoginRequestHandler(
             {
                 Id = user.Id,
                 Role = user.Role,
-                AccessToken = GenerateUserToken(user.Email!, user.Role, user.Id)
+                AccessToken = GenerateUserToken(user.Email!, user.Role, user.Id, user.FirstName)
             };
         }
 
@@ -72,14 +72,17 @@ public class LoginRequestHandler(
         return Errors.Auth.LoginFailed;
     }
 
-    private string GenerateUserToken(string emailAddress, string userRole, string userId)
+    private string GenerateUserToken(string emailAddress, string userRole, string userId, string firstName)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey!));
 
         var claims = new List<Claim>
         {
-            new(JwtClaims.EMAIL, emailAddress), new(JwtClaims.USER_ID, userId), new(JwtClaims.ROLE, userRole)
+            new(JwtClaims.EMAIL, emailAddress),
+            new(JwtClaims.USER_ID, userId),
+            new(JwtClaims.ROLE, userRole),
+            new(JwtClaims.FIRST_NAME, firstName)
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor
