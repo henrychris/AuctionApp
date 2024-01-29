@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 
 using Microsoft.AspNetCore.SignalR;
 
-namespace AuctionApp.Application.Hubs;
+namespace AuctionApp.Infrastructure.Hubs;
 
 public record ChatUser(string Name, string Room);
 

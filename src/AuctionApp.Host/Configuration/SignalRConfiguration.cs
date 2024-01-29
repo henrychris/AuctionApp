@@ -1,4 +1,4 @@
-using AuctionApp.Application.Hubs;
+using AuctionApp.Infrastructure.Hubs;
 
 namespace AuctionApp.Host.Configuration;
 
