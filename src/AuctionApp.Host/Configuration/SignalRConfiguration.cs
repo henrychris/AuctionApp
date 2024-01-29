@@ -6,6 +6,6 @@ public static class SignalRConfiguration
 {
     public static void AddSignalRHubs(this WebApplication app)
     {
-        app.MapHub<ChatHub>("/chatHub");
+        app.MapHub<AuctionRoomHub>("/auctionHub");
     }
 }
