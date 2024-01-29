@@ -5,6 +5,8 @@ using AuctionApp.Application.Extensions;
 using AuctionApp.Application.Features.Rooms;
 using AuctionApp.Application.Features.Rooms.CreateRoom;
 using AuctionApp.Application.Features.Rooms.GetSingleRoom;
+using AuctionApp.Application.Features.Rooms.JoinRoom;
+using AuctionApp.Application.Features.Rooms.LeaveRoom;
 using AuctionApp.Domain.Constants;
 using AuctionApp.Infrastructure;
 
@@ -44,6 +46,23 @@ public class RoomsController(IMediator mediator) : BaseController
         // If an error occurs, return an error response using the ReturnErrorResponse method.
         return result.Match(
             _ => Ok(result.ToSuccessfulApiResponse()),
+            ReturnErrorResponse);
+    }
+
+    [HttpPost("{id}/join")]
+    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> JoinRoom(string id, [FromBody] JoinRoomRequestDto requestDto)
+    {
+        var result = await mediator.Send(new JoinRoomRequest { RoomId = id, ConnectionId = requestDto.ConnectionId });
+        return result.Match(_ => NoContent(), ReturnErrorResponse);
+    }
+
+    [HttpPost("{id}/leave")]
+    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> LeaveRoom(string id, [FromBody] LeaveRoomRequestDto requestDto)
+    {
+        var result = await mediator.Send(new LeaveRoomRequest { RoomId = id, ConnectionId = requestDto.ConnectionId });
+        return result.Match(_ => NoContent(),
             ReturnErrorResponse);
     }
 }

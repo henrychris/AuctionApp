@@ -1,12 +1,14 @@
 using AuctionApp.Application.Contracts;
 using AuctionApp.Domain.Entities;
 using AuctionApp.Infrastructure.Data;
+using AuctionApp.Infrastructure.Hubs;
 
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuctionApp.Infrastructure.Services
 {
-    public class RoomService(DataContext context) : IRoomService
+    public class RoomService(DataContext context, IHubContext<AuctionRoomHub> hubContext) : IRoomService
     {
         public async Task<BiddingRoom?> GetRoomAsync(string biddingRoomId)
         {
@@ -22,6 +24,25 @@ namespace AuctionApp.Infrastructure.Services
         {
             await context.BiddingRooms.AddAsync(room);
             await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateRoomAsync(BiddingRoom room)
+        {
+            context.BiddingRooms.Update(room);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task AddUserToRoom(string roomId, string userName, string connectionId)
+        {
+            await hubContext.Groups.AddToGroupAsync(connectionId, roomId);
+            await hubContext.Clients.Group(roomId).SendAsync("UserJoined", userName);
+        }
+
+        public async Task RemoveUserFromRoom(string userId, string roomId, string connectionId)
+        {
+            var user = await context.Users.FindAsync(userId);
+            await hubContext.Groups.RemoveFromGroupAsync(connectionId, roomId);
+            await hubContext.Clients.Group(roomId).SendAsync("UserLeft", user!.FirstName);
         }
     }
 }

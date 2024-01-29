@@ -11,4 +11,9 @@ public class BiddingRoom : BaseEntity
     public Auction Auction { get; set; } = null!;
 
     public ICollection<Bid> Bids { get; set; } = [];
+
+    public bool IsOpen()
+    {
+        return Status == RoomStatus.Open;
+    }
 }

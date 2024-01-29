@@ -48,6 +48,7 @@ public static class StartupConfiguration
 
     public static void RegisterMiddleware(this WebApplication app)
     {
+        app.UseMiddleware<SignalRMiddleware>();
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
