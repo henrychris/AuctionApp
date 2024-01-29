@@ -16,4 +16,8 @@ public class CurrentUser(IHttpContextAccessor httpContextAccessor) : ICurrentUse
     public string Role =>
         httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.ROLE)?.Value ??
         throw new InvalidOperationException("User not authorised.");
+
+    public string FirstName =>
+        httpContextAccessor.HttpContext?.User.FindFirst(JwtClaims.FIRST_NAME)?.Value ??
+        throw new InvalidOperationException("User not authorised.");
 }
