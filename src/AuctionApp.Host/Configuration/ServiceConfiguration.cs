@@ -6,7 +6,7 @@ namespace AuctionApp.Host.Configuration;
 public static class ServiceConfiguration
 {
     public static void RegisterServices(this IServiceCollection services)
-    {
+    {      
         services.AddScoped<ICurrentUser, CurrentUser>();
         services.AddScoped<IAuctionService, AuctionService>();
         services.AddScoped<IBidService, BidService>();
