@@ -1,12 +1,12 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using AuctionApp.Application.Features.Auth.Login;
 using AuctionApp.Infrastructure.Filters;
 using AuctionApp.Infrastructure.Middleware;
 
 using FluentValidation;
 
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Host.Configuration;
