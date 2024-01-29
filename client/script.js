@@ -1,11 +1,17 @@
-import { postData, joinRoom, postDataAuth, BASE_URL } from "./helper.js";
+import {
+  postData,
+  joinRoom,
+  leaveRoom,
+  postDataAuth,
+  BASE_URL,
+} from "./helper.js";
 
-let TOKEN = "";
+let loginRes = { accessToken: "", role: "", id: "" };
 
 async function main() {
   try {
     // Wait for the login to complete and get the token
-    TOKEN = await login();
+    loginRes = await login();
 
     // Start the SignalR connection after obtaining the token
     await startSignalRConnection();
@@ -22,14 +28,14 @@ async function login() {
     password: "testPassword123@",
   });
 
-  return res.data.accessToken;
+  return res.data;
 }
 
 async function startSignalRConnection() {
   const connection = new signalR.HubConnectionBuilder()
     .withAutomaticReconnect()
     .withUrl("http://localhost:5030/auctionHub", {
-      accessTokenFactory: () => TOKEN,
+      accessTokenFactory: () => loginRes.accessToken,
     })
     .build();
 
@@ -66,7 +72,16 @@ async function startSignalRConnection() {
     .addEventListener("click", async function () {
       const roomId = document.getElementById("roomId").value;
       const userName = document.getElementById("userName").value;
-      await joinRoom(roomId, connection.connectionId, TOKEN);
+      let success = await joinRoom(
+        roomId,
+        connection.connectionId,
+        loginRes.accessToken
+      );
+
+      if (!success) {
+        console.log("failed to join");
+        return;
+      }
       console.log(`${userName} joined room`);
 
       document.getElementById("homeScreen").style.display = "none";
@@ -88,6 +103,32 @@ async function startSignalRConnection() {
           document.getElementById("messageInput").value = "";
         }
       }
+    });
+
+  document
+    .getElementById("leaveRoom")
+    .addEventListener("click", async function () {
+      let userId = loginRes.id;
+      const roomId = document.getElementById("roomId").value;
+      let success = await leaveRoom(
+        roomId,
+        connection.connectionId,
+        loginRes.accessToken
+      );
+
+      if (!success) {
+        console.log("failed to leave");
+        return;
+      }
+
+      console.log(`${userId} left room`);
+
+      document.getElementById("homeScreen").style.display = "block";
+      document.getElementById("chatScreen").style.display = "none";
+      document.getElementById("roomId").value = "";
+      document.getElementById("userName").value = "";
+
+      // connection.stop();
     });
 }
 

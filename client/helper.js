@@ -25,6 +25,30 @@ export async function joinRoom(roomId, connectionId, token) {
     },
     token
   );
+
+  if (res.status === 204) {
+    console.log("joined");
+    return true;
+  }
+
+  return false;
+}
+
+export async function leaveRoom(roomId, connectionId, token) {
+  const res = await postDataAuth(
+    `${BASE_URL}/rooms/${roomId}/leave`,
+    {
+      connectionId: connectionId,
+    },
+    token
+  );
+
+  if (res.status === 204) {
+    console.log("left");
+    return true;
+  }
+
+  return false;
 }
 
 export async function postDataAuth(url = "", data = {}, token) {
@@ -42,4 +66,6 @@ export async function postDataAuth(url = "", data = {}, token) {
     referrerPolicy: "no-referrer",
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
+
+  return response;
 }
