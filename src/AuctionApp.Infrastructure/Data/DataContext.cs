@@ -18,7 +18,6 @@ public class DataContext : IdentityDbContext<User>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.HasDefaultSchema("AuctionDb");
     }
 
     public DbSet<Auction> Auctions { get; set; } = null!;

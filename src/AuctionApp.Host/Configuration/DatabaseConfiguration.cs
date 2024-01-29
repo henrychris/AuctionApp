@@ -41,7 +41,7 @@ public static class DatabaseConfiguration
 
         services.AddDbContext<T>(options =>
         {
-            options.UseNpgsql(connectionString, o => o.MigrationsHistoryTable(
+            options.UseSqlite(connectionString, o => o.MigrationsHistoryTable(
                 tableName: HistoryRepository.DefaultTableName, typeof(T).Name));
         });
     }
