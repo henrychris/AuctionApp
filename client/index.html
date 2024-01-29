@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="./styles.css" />
     <title>SignalR Client</title>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"
@@ -9,11 +10,8 @@
       referrerpolicy="no-referrer"
     ></script>
   </head>
-  <body style="font-family: Roboto, serif">
-    <div
-      id="homeScreen"
-      style="display: flex; flex-direction: column; gap: 5px"
-    >
+  <body>
+    <div id="homeScreen">
       <h1>SignalR Client</h1>
       <input type="text" id="userName" placeholder="Username" />
       <input type="text" id="roomId" placeholder="RoomId" />
