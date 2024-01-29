@@ -1,6 +1,8 @@
 using System.Diagnostics;
 
 using AuctionApp.Domain.Constants;
+using AuctionApp.Domain.Entities;
+using AuctionApp.Domain.Enums;
 using AuctionApp.Domain.Settings;
 using AuctionApp.Infrastructure.Data;
 
@@ -19,7 +21,6 @@ public static class DatabaseConfiguration
     {
         return context.Database.ProviderName == IN_MEMORY_PROVIDER_NAME;
     }
-
 
     public static void SetupDatabase<T>(this IServiceCollection services) where T : DbContext
     {
@@ -65,6 +66,7 @@ public static class DatabaseConfiguration
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
         if (IsInMemoryDatabase(context))
         {
@@ -78,7 +80,40 @@ public static class DatabaseConfiguration
         }
 
         await SeedRoles(roleManager);
+        await SeedUsers(userManager);
+        await SeedAuctions(context);
+        await SeedBiddingRooms(context);
         await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedBiddingRooms(DataContext context)
+    {
+        var biddingRoom = new BiddingRoom { Id = "biddingRoom1", AuctionId = "auction1", Status = RoomStatus.Open };
+        await context.BiddingRooms.AddAsync(biddingRoom);
+        Console.WriteLine("Bidding room seeding complete.");
+    }
+
+    private static async Task SeedAuctions(DataContext context)
+    {
+        var auction = new Auction
+        {
+            Id = "auction1",
+            Name = "Auction 1",
+            StartingPriceInKobo = 1000000,
+            StartingTime = DateTime.UtcNow,
+            ClosingTime = DateTime.UtcNow.AddDays(1),
+            Status = AuctionStatus.InProgress
+        };
+
+        await context.Auctions.AddAsync(auction);
+        Console.WriteLine("Auction seeding complete.");
+    }
+
+    private static async Task SeedUsers(UserManager<User> userManager)
+    {
+        var user = CreateUser("Henry", "test@email.com", "Admin", "c0bdebd1-f275-4722-aa54-ca4524e4b998");
+        await AddUser(userManager, user, "testPassword123@");
+        Console.WriteLine("User seeding complete.");
     }
 
     private static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
@@ -93,5 +128,42 @@ public static class DatabaseConfiguration
         }
 
         Console.WriteLine("Role seeding complete.");
+    }
+
+    private static User CreateUser(string userName, string email, string role, string userId)
+    {
+        return new User
+        {
+            Id = userId,
+            FirstName = userName,
+            LastName = "Ihenacho",
+            Email = email,
+            NormalizedEmail = email.ToUpper(),
+            UserName = userName,
+            NormalizedUserName = userName.ToUpper(),
+            PhoneNumber = $"+1{userName.Length}1".PadLeft(12, '1'),
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString("D"),
+            Role = role
+        };
+    }
+
+    private static async Task AddUser(UserManager<User> userManager, User user, string password)
+    {
+        if (user is null)
+        {
+            throw new ArgumentNullException(nameof(user));
+        }
+
+        if (await userManager.FindByEmailAsync(user.Email!) is null)
+        {
+            var passwordHasher = new PasswordHasher<User>();
+            var hashedPassword = passwordHasher.HashPassword(user, password);
+            user.PasswordHash = hashedPassword;
+
+            await userManager.CreateAsync(user);
+            await userManager.AddToRoleAsync(user, user.Role);
+        }
     }
 }
