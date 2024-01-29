@@ -16,11 +16,11 @@ public class GetSingleAuctionRequest : IRequest<ErrorOr<GetAuctionResponse>>
 
 public class GetSingleAuctionRequestHandler(
     IAuctionService auctionService,
-    ILogger<GetSingleAuctionRequestHandler> logger,
-    IValidator<GetSingleAuctionRequest> validator
+    ILogger<GetSingleAuctionRequestHandler> logger
 ) : IRequestHandler<GetSingleAuctionRequest, ErrorOr<GetAuctionResponse>>
 {
-    public async Task<ErrorOr<GetAuctionResponse>> Handle(GetSingleAuctionRequest request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<GetAuctionResponse>> Handle(GetSingleAuctionRequest request,
+                                                          CancellationToken cancellationToken)
     {
         logger.LogInformation("Fetching auction with Id: {id}.", request.AuctionId);
         var auction = await auctionService.GetAuctionByIdAsync(request.AuctionId);

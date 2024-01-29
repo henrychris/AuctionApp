@@ -17,14 +17,20 @@ namespace AuctionApp.Application.Features.Bids.MakeBid
         public string BiddingRoomId { get; set; } = null!;
     }
 
-    public class MakeBidRequestHandler(IBidService bidService, IRoomService roomService, ICurrentUser currentUser, ILogger<MakeBidRequestHandler> logger, IValidator<MakeBidRequest> validator) : IRequestHandler<MakeBidRequest, ErrorOr<MakeBidResponse>>
+    public class MakeBidRequestHandler(
+        IBidService bidService,
+        IRoomService roomService,
+        ICurrentUser currentUser,
+        ILogger<MakeBidRequestHandler> logger,
+        IValidator<MakeBidRequest> validator) : IRequestHandler<MakeBidRequest, ErrorOr<MakeBidResponse>>
     {
         public async Task<ErrorOr<MakeBidResponse>> Handle(MakeBidRequest request, CancellationToken cancellationToken)
         {
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
-                logger.LogError("Validation failed for {request}. Errors: {validationErrors}", request, validationResult.Errors);
+                logger.LogError("Validation failed for {request}. Errors: {validationErrors}", request,
+                    validationResult.Errors);
                 return validationResult.ToErrorList();
             }
 
