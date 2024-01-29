@@ -81,19 +81,22 @@ public static class DatabaseConfiguration
 
         await SeedRoles(roleManager);
         await SeedUsers(userManager);
-        await SeedAuctions(context);
-        await SeedBiddingRooms(context);
+        var auction = await SeedAuctions(context);
+        await SeedBiddingRooms(context, auction);
         await context.SaveChangesAsync();
     }
 
-    private static async Task SeedBiddingRooms(DataContext context)
+    private static async Task SeedBiddingRooms(DataContext context, Auction auction)
     {
-        var biddingRoom = new BiddingRoom { Id = "biddingRoom1", AuctionId = "auction1", Status = RoomStatus.Open };
+        var biddingRoom = new BiddingRoom
+        {
+            Id = "biddingRoom1", AuctionId = "auction1", Status = RoomStatus.Closed, Auction = auction
+        };
         await context.BiddingRooms.AddAsync(biddingRoom);
         Console.WriteLine("Bidding room seeding complete.");
     }
 
-    private static async Task SeedAuctions(DataContext context)
+    private static async Task<Auction> SeedAuctions(DataContext context)
     {
         var auction = new Auction
         {
@@ -102,16 +105,19 @@ public static class DatabaseConfiguration
             StartingPriceInKobo = 1000000,
             StartingTime = DateTime.UtcNow,
             ClosingTime = DateTime.UtcNow.AddDays(1),
-            Status = AuctionStatus.InProgress
+            Status = AuctionStatus.NotStarted
         };
 
         await context.Auctions.AddAsync(auction);
         Console.WriteLine("Auction seeding complete.");
+        return auction;
     }
 
     private static async Task SeedUsers(UserManager<User> userManager)
     {
-        var user = CreateUser("Henry", "test@email.com", "Admin", "c0bdebd1-f275-4722-aa54-ca4524e4b998");
+        var admin = CreateUser("Henry", "test@email.com", "Admin", "c0bdebd1-f275-4722-aa54-ca4524e4b998");
+        var user = CreateUser("User", "test2@hotmail.com", "User", "testUserId");
+        await AddUser(userManager, admin, "testPassword123@");
         await AddUser(userManager, user, "testPassword123@");
         Console.WriteLine("User seeding complete.");
     }

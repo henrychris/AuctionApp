@@ -24,7 +24,7 @@ async function main() {
 
 async function login() {
   const res = await postData(`${BASE_URL}/auth/login`, {
-    emailAddress: "test@email.com",
+    emailAddress: "test2@hotmail.com",
     password: "testPassword123@",
   });
 
