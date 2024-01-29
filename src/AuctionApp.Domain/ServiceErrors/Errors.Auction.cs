@@ -11,6 +11,10 @@ namespace AuctionApp.Domain.ServiceErrors
             public static Error CannotUpdateAuctionInProgress => Error.Conflict(
                 code: "Auction.CannotUpdateAuctionInProgress",
                 description: "Cannot update an auction that is in progress.");
+
+            public static Error AlreadyStarted => Error.Conflict(
+                code: "Auction.AlreadyStarted",
+                description: "Auction is already started.");
         }
     }
 }

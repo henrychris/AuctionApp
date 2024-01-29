@@ -44,5 +44,13 @@ namespace AuctionApp.Infrastructure.Services
             await hubContext.Groups.RemoveFromGroupAsync(connectionId, roomId);
             await hubContext.Clients.Group(roomId).SendAsync("UserLeft", user!.FirstName);
         }
+
+        public async Task SendAuctionStartMessageToClientsAsync(string roomId, string productName,
+                                                                decimal startingPriceInNaira)
+        {
+            Console.WriteLine($"Sending auction start message to clients in room {roomId}");
+            await hubContext.Clients.Group(roomId).SendAsync("AuctionStarted",
+                $"Auction started for product {productName}. Starting Price: {startingPriceInNaira}NGN");
+        }
     }
 }

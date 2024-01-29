@@ -7,6 +7,8 @@ using AuctionApp.Application.Features.Rooms.CreateRoom;
 using AuctionApp.Application.Features.Rooms.GetSingleRoom;
 using AuctionApp.Application.Features.Rooms.JoinRoom;
 using AuctionApp.Application.Features.Rooms.LeaveRoom;
+using AuctionApp.Application.Features.Rooms.OpenRoom;
+using AuctionApp.Application.Features.Rooms.StartRoomAuction;
 using AuctionApp.Domain.Constants;
 using AuctionApp.Infrastructure;
 
@@ -64,6 +66,26 @@ public class RoomsController(IMediator mediator) : BaseController
     public async Task<IActionResult> LeaveRoom(string id, [FromBody] LeaveRoomRequestDto requestDto)
     {
         var result = await mediator.Send(new LeaveRoomRequest { RoomId = id, ConnectionId = requestDto.ConnectionId });
+        return result.Match(_ => NoContent(),
+            ReturnErrorResponse);
+    }
+
+    [Authorize(Roles = Roles.ADMIN)]
+    [HttpPost("{id}/start")]
+    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> StartRoomAuction(string id)
+    {
+        var result = await mediator.Send(new StartRoomAuctionRequest { RoomId = id });
+        return result.Match(_ => NoContent(),
+            ReturnErrorResponse);
+    }
+
+    [Authorize(Roles = Roles.ADMIN)]
+    [HttpPost("{id}/open")]
+    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> OpenRoomAuction(string id)
+    {
+        var result = await mediator.Send(new OpenRoomRequest { RoomId = id });
         return result.Match(_ => NoContent(),
             ReturnErrorResponse);
     }

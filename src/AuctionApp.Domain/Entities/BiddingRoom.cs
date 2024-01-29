@@ -16,4 +16,9 @@ public class BiddingRoom : BaseEntity
     {
         return Status == RoomStatus.Open;
     }
+
+    public void Open()
+    {
+        Status = RoomStatus.Open;
+    }
 }

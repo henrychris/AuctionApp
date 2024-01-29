@@ -62,4 +62,9 @@ public class Auction : BaseEntity
     {
         return Status == AuctionStatus.InProgress;
     }
+
+    public void Start()
+    {
+        Status = AuctionStatus.InProgress;
+    }
 }
