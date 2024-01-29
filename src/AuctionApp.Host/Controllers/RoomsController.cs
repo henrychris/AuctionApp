@@ -49,6 +49,7 @@ public class RoomsController(IMediator mediator) : BaseController
             ReturnErrorResponse);
     }
 
+    [Authorize(Roles = Roles.USER)]
     [HttpPost("{id}/join")]
     [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
     public async Task<IActionResult> JoinRoom(string id, [FromBody] JoinRoomRequestDto requestDto)
@@ -57,6 +58,7 @@ public class RoomsController(IMediator mediator) : BaseController
         return result.Match(_ => NoContent(), ReturnErrorResponse);
     }
 
+    [Authorize(Roles = Roles.USER)]
     [HttpPost("{id}/leave")]
     [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
     public async Task<IActionResult> LeaveRoom(string id, [FromBody] LeaveRoomRequestDto requestDto)
