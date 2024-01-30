@@ -115,8 +115,8 @@ public static class DatabaseConfiguration
 
     private static async Task SeedUsers(UserManager<User> userManager)
     {
-        var admin = CreateUser("Henry", "test@email.com", "Admin", "c0bdebd1-f275-4722-aa54-ca4524e4b998");
-        var user = CreateUser("User", "test2@hotmail.com", "User", "testUserId");
+        var admin = CreateUser("Henry", "test@email.com", "User", "c0bdebd1-f275-4722-aa54-ca4524e4b998");
+        var user = CreateUser("User", "test2@email.com", "User", "testUserId");
         await AddUser(userManager, admin, "testPassword123@");
         await AddUser(userManager, user, "testPassword123@");
         Console.WriteLine("User seeding complete.");
