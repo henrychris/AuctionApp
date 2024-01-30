@@ -89,86 +89,79 @@ async function startSignalRConnection() {
   // The rest of your code remains unchanged
   document
     .getElementById("joinRoom")
-    .addEventListener("click", async function () {
-      const roomId = document.getElementById("roomId").value;
-      const userName = document.getElementById("userName").value;
-      let success = await joinRoom(
-        roomId,
-        connection.connectionId,
-        loginRes.accessToken
-      );
+    .addEventListener("click", joinRoomInternal);
 
-      if (!success) {
-        console.log("failed to join");
-        return;
-      }
-      console.log(`${userName} joined room`);
+  async function joinRoomInternal() {
+    const roomId = document.getElementById("roomId").value;
+    const userName = document.getElementById("userName").value;
+    let success = await joinRoom(
+      roomId,
+      connection.connectionId,
+      loginRes.accessToken
+    );
 
-      document.getElementById("homeScreen").style.display = "none";
-      document.getElementById("chatScreen").style.display = "block";
-      document.getElementById("roomTitle").innerHTML = roomId;
-      document.getElementById("messageInput").focus();
-    });
+    if (!success) {
+      console.log("failed to join");
+      return;
+    }
+    console.log(`${userName} joined room`);
+
+    document.getElementById("homeScreen").style.display = "none";
+    document.getElementById("chatScreen").style.display = "block";
+    document.getElementById("roomTitle").innerHTML = roomId;
+    document.getElementById("messageInput").focus();
+  }
 
   document
     .getElementById("sendMessageButton")
-    .addEventListener("click", function (event) {
-      // if (event.key === "Enter") {
-      const message = document.getElementById("messageInput").value;
-      console.log(`message: ${message}`);
-      const roomId = document.getElementById("roomId").value;
-      console.log(`roomId: ${roomId}`);
-      if (message && roomId) {
-        connection.invoke("SendMessageToRoom", roomId, message);
-        document.getElementById("messageInput").value = "";
-        document.getElementById("messageInput").focus();
-      }
-      // }
-    });
+    .addEventListener("click", SendMessageToRoom);
 
-  document
-    .getElementById("leaveRoom")
-    .addEventListener("click", async function () {
-      let userId = loginRes.id;
-      const roomId = document.getElementById("roomId").value;
-      let success = await leaveRoom(
-        roomId,
-        connection.connectionId,
-        loginRes.accessToken
-      );
+  function SendMessageToRoom() {
+    const message = document.getElementById("messageInput").value;
+    const roomId = document.getElementById("roomId").value;
+    if (message && roomId) {
+      connection.invoke("SendMessageToRoom", roomId, message);
+      document.getElementById("messageInput").value = "";
+      document.getElementById("messageInput").focus();
+    }
+  }
 
-      if (!success) {
-        console.log("failed to leave");
-        return;
-      }
+  document.getElementById("leaveRoom").addEventListener("click", leaveRoom);
 
-      console.log(`${userId} left room`);
+  async function leaveRoom() {
+    let userId = loginRes.id;
+    const roomId = document.getElementById("roomId").value;
+    let success = await leaveRoom(
+      roomId,
+      connection.connectionId,
+      loginRes.accessToken
+    );
 
-      document.getElementById("homeScreen").style.display = "flex";
-      document.getElementById("chatScreen").style.display = "none";
-      document.getElementById("roomId").value = "";
-      document.getElementById("userName").value = "";
+    if (!success) {
+      console.log("failed to leave");
+      return;
+    }
 
-      // connection.stop();
-    });
+    console.log(`${userId} left room`);
 
-  document
-    .getElementById("bidButton")
-    .addEventListener("click", async function () {
-      const bid = document.getElementById("bidInput").value;
-      const roomId = document.getElementById("roomId").value;
-      console.log(`bid: ${bid}`);
-      console.log(`roomId: ${roomId}`);
-      if (bid && roomId) {
-        let success = await makeBid(
-          roomId,
-          connection.connectionId,
-          bid,
-          loginRes.accessToken
-        );
-        document.getElementById("bidInput").value = "";
-      }
-    });
+    document.getElementById("homeScreen").style.display = "flex";
+    document.getElementById("chatScreen").style.display = "none";
+    document.getElementById("roomId").value = "";
+    document.getElementById("userName").value = "";
+  }
+
+  document.getElementById("bidButton").addEventListener("click", bid);
+
+  async function bid() {
+    const bid = document.getElementById("bidInput").value;
+    const roomId = document.getElementById("roomId").value;
+    console.log(`bid: ${bid}`);
+    console.log(`roomId: ${roomId}`);
+    if (bid && roomId) {
+      await makeBid(roomId, connection.connectionId, bid, loginRes.accessToken);
+      document.getElementById("bidInput").value = "";
+    }
+  }
 }
 
 // The main function is called to kick off the initialization process
