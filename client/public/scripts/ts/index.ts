@@ -50,6 +50,7 @@ async function loginInternal() {
   try {
     loginRes = await login(username, password);
     console.log(loginRes);
+    window.location.href = "./pages/rooms.html";
   } catch (error) {
     console.error("Error during login:", error);
   }
