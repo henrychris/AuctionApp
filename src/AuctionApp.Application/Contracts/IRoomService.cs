@@ -14,5 +14,6 @@ namespace AuctionApp.Application.Contracts
                                                    decimal startingPriceInNaira);
 
         Task AnnounceNewHighestBidAsync(BiddingRoom room, Bid bid, string firstName);
+        IQueryable<BiddingRoom> GetRoomsQuery();
     }
 }

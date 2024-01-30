@@ -3,8 +3,9 @@ using System.Net.Mime;
 using AuctionApp.Application.ApiResponses;
 using AuctionApp.Application.Extensions;
 using AuctionApp.Application.Features.Bids.MakeBid;
-using AuctionApp.Application.Features.Rooms;
 using AuctionApp.Application.Features.Rooms.CreateRoom;
+using AuctionApp.Application.Features.Rooms.EndRoomAuction;
+using AuctionApp.Application.Features.Rooms.GetAllRooms;
 using AuctionApp.Application.Features.Rooms.GetSingleRoom;
 using AuctionApp.Application.Features.Rooms.JoinRoom;
 using AuctionApp.Application.Features.Rooms.LeaveRoom;
@@ -101,6 +102,30 @@ public class RoomsController(IMediator mediator) : BaseController
             RoomId = id, ConnectionId = requestDto.ConnectionId, BidAmountInNaira = requestDto.BidAmountInNaira
         });
         return result.Match(_ => Ok(result.ToSuccessfulApiResponse()),
+            ReturnErrorResponse);
+    }
+
+    [Authorize(Roles = Roles.ADMIN)]
+    [HttpPost("{id}/end")]
+    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> EndRoomAuction(string id)
+    {
+        var result = await mediator.Send(new EndRoomAuctionRequest { RoomId = id });
+        return result.Match(_ => NoContent(),
+            ReturnErrorResponse);
+    }
+
+    [Authorize]
+    [HttpGet("all")]
+    [ProducesResponseType(typeof(ApiResponse<PagedResponse<GetRoomResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllRooms([FromQuery] GetAllRoomsRequest request)
+    {
+        var result = await mediator.Send(request);
+
+        // If successful, return the event data in an ApiResponse.
+        // If an error occurs, return an error response using the ReturnErrorResponse method.
+        return result.Match(
+            _ => Ok(result.ToSuccessfulApiResponse()),
             ReturnErrorResponse);
     }
 }

@@ -63,5 +63,10 @@ namespace AuctionApp.Infrastructure.Services
             Console.WriteLine($"Announcing new highest bid for room {room.Id}");
             await hubContext.Clients.Group(room.Id).SendAsync("BidPlaced", message, amountInNaira);
         }
+
+        public IQueryable<BiddingRoom> GetRoomsQuery()
+        {
+            return context.BiddingRooms.AsQueryable();
+        }
     }
 }
