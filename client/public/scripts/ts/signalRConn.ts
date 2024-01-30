@@ -59,6 +59,9 @@ function SetSignalRMessageReceivers(connection: signalR.HubConnection) {
     const messages = document.getElementById("messages")!;
     const user = `<span style="font-weight: bold">${msg.userName}: </span>`;
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
+
+    const highestBid = document.getElementById("highestPriceValue")!;
+    highestBid.innerText = amount + " NGN";
   });
 }
 
