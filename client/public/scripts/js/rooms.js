@@ -2808,7 +2808,6 @@ async function StartSignalRConnection(token) {
   SetSignalRMessageReceivers(connection);
   try {
     await connection.start();
-    localStorage.setItem("connectionId", connection.connectionId);
     console.log("SignalR connection started successfully.");
   } catch (error) {
     console.error("Error starting SignalR connection:", error);
@@ -2850,22 +2849,20 @@ function SendMessageToRoom(message, roomId) {
   connection.invoke("SendMessageToRoom", roomId, message);
 }
 async function MakeBid(roomId, bid, token) {
-  var connectionId = localStorage.getItem("connectionId");
   const res = await PostDataWithToken(`${BASE_URL}/rooms/${roomId}/bid`, {
-    connectionId,
+    connectionId: connection.connectionId,
     bidAmountInNaira: bid
   }, token);
   if (res.status === 200) {
     console.log("bid successful");
     return true;
   }
-  console.error(res.json());
+  console.error(JSON.stringify(res));
   return false;
 }
 async function LeaveRoom(roomId, token) {
-  var connectionId = localStorage.getItem("connectionId");
   const res = await PostDataWithTokenNoRes(`${BASE_URL}/rooms/${roomId}/leave`, {
-    connectionId
+    connectionId: connection.connectionId
   }, token);
   if (res.status === 204) {
     console.log("left");
@@ -2875,9 +2872,8 @@ async function LeaveRoom(roomId, token) {
   return false;
 }
 async function JoinRoom(roomId, token) {
-  var connectionId = localStorage.getItem("connectionId");
   const res = await PostDataWithTokenNoRes(`${BASE_URL}/rooms/${roomId}/join`, {
-    connectionId
+    connectionId: connection.connectionId
   }, token);
   if (res.status === 204) {
     console.log("left");
@@ -2889,6 +2885,11 @@ async function JoinRoom(roomId, token) {
 var connection;
 
 // node_modules/@microsoft/si
+var SetEventListeners = function() {
+  document.getElementById("sendMessageButton").addEventListener("click", SendMessageToRoomInternal);
+  document.getElementById("bidButton").addEventListener("click", MakeBidInternal);
+  document.getElementById("leaveRoomButton").addEventListener("click", LeaveRoomInternal);
+};
 async function GetRooms(token) {
   const queryParams = "?status=open&pageNumber=1&pageSize=10";
   const rooms = await GetDataWithToken(`${BASE_URL}/rooms/all${queryParams}`, token);
@@ -2927,12 +2928,52 @@ async function joinRoomInternal(roomId) {
     console.log(`${userId} failed to join the room`);
     return;
   }
-  window.location.href = "chatRoom.html";
+  const chatScreen = document.getElementById("chatScreen");
+  const roomScreen = document.getElementById("roomListScreen");
+  chatScreen.style.display = "block";
+  roomScreen.style.display = "none";
   console.log(`${userId} joined ${roomId}`);
 }
 async function main() {
   const rooms = await GetRooms(TOKEN);
   await ListRooms(rooms);
+}
+var SendMessageToRoomInternal = function() {
+  const messageInput = document.getElementById("messageInput");
+  const roomId = document.getElementById("roomId").innerText;
+  if (messageInput.value && roomId) {
+    SendMessageToRoom(messageInput.value, roomId);
+    messageInput.value = "";
+  } else {
+    console.error("Type in a message before sending!");
+    messageInput.focus();
+  }
+};
+async function MakeBidInternal() {
+  const bidInput = document.getElementById("bidInput");
+  const roomId = document.getElementById("roomId").innerText;
+  if (bidInput.value && roomId) {
+    const bidValue = parseFloat(bidInput.value);
+    await MakeBid(roomId, bidValue, TOKEN);
+    bidInput.value = "";
+  } else {
+    console.error("Input a value before sending a bid!");
+  }
+}
+async function LeaveRoomInternal() {
+  let userId = loginRes.id;
+  const roomIdInput = document.getElementById("roomId");
+  if (!roomIdInput) {
+    console.error("Something has gone horribly wrong. There's no room ID!");
+    return;
+  }
+  const roomId = roomIdInput.innerText;
+  let success = await LeaveRoom(roomId, TOKEN);
+  if (!success) {
+    console.log(`${userId} failed to leave the room`);
+    return;
+  }
+  console.log(`${userId} left ${roomId}`);
 }
 var loginRes;
 var TOKEN = "";
@@ -2940,5 +2981,6 @@ var storedData = JSON.parse(localStorage.getItem("loginRes"));
 loginRes = storedData;
 console.log(loginRes);
 TOKEN = loginRes.accessToken;
+SetEventListeners();
 StartSignalRConnection(TOKEN);
 main();

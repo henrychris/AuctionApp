@@ -17,7 +17,6 @@ export async function StartSignalRConnection(
 
   try {
     await connection.start();
-    localStorage.setItem("connectionId", connection.connectionId!);
     console.log("SignalR connection started successfully.");
   } catch (error) {
     console.error("Error starting SignalR connection:", error);
@@ -68,11 +67,10 @@ export function SendMessageToRoom(message: string, roomId: string) {
 }
 
 export async function MakeBid(roomId: string, bid: number, token: string) {
-  var connectionId = localStorage.getItem("connectionId")!;
   const res = await PostDataWithToken(
     `${BASE_URL}/rooms/${roomId}/bid`,
     {
-      connectionId: connectionId,
+      connectionId: connection.connectionId,
       bidAmountInNaira: bid,
     },
     token
@@ -83,17 +81,15 @@ export async function MakeBid(roomId: string, bid: number, token: string) {
     return true;
   }
 
-  console.error(res.json());
+  console.error(JSON.stringify(res));
   return false;
 }
 
 export async function LeaveRoom(roomId: string, token: string) {
-  var connectionId = localStorage.getItem("connectionId")!;
-
   const res = await PostDataWithTokenNoRes(
     `${BASE_URL}/rooms/${roomId}/leave`,
     {
-      connectionId: connectionId,
+      connectionId: connection.connectionId,
     },
     token
   );
@@ -108,11 +104,10 @@ export async function LeaveRoom(roomId: string, token: string) {
 }
 
 export async function JoinRoom(roomId: string, token: string) {
-  var connectionId = localStorage.getItem("connectionId")!;
   const res = await PostDataWithTokenNoRes(
     `${BASE_URL}/rooms/${roomId}/join`,
     {
-      connectionId: connectionId,
+      connectionId: connection.connectionId,
     },
     token
   );

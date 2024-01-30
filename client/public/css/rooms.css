@@ -148,3 +148,80 @@ nav a:hover {
 .joinRoomButton:hover {
   background-color: #45a049;
 }
+
+/* Style for chatScreen section */
+#chatScreen {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#chatScreen h1 {
+  margin-bottom: 10px;
+}
+
+#auctionInfo {
+  margin-top: 10px;
+}
+
+#currentHighestPrice {
+  margin-bottom: 5px;
+}
+
+#highestPriceValue {
+  font-weight: bold;
+  color: #e74c3c; /* Stand out color for the highest price */
+}
+
+#auctionStatus {
+  margin-top: 10px;
+}
+
+#messages {
+  border: 1px solid #ddd;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#messageInput,
+#bidId {
+  padding: 5px;
+  width: 80%;
+}
+
+#sendMessageButton,
+#bidButton,
+#leaveRoomButton {
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+}
+
+#sendMessageButton {
+  background-color: #3498db;
+  color: #fff;
+}
+
+#sendMessageButton:active {
+  background-color: #052d47;
+}
+
+#bidButton {
+  background-color: #f39c12;
+  color: #fff;
+}
+
+#bidButton:active {
+  background-color: #7a4e06;
+}
+
+#leaveRoomButton {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+#leaveRoomButton:active {
+  background-color: #490f09;
+}
