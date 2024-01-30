@@ -1,0 +1,5 @@
+- highest price does not update during auction
+- it should also update on room load
+-- can we preserve text messages when a user leaves and rejoins?
+
+- when a new bid is made, the message prints the users name, not Admin.
