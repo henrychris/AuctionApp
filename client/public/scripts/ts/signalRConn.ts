@@ -1,5 +1,5 @@
 import { PostDataWithToken, PostDataWithTokenNoRes } from "./helper.js";
-import { BASE_URL } from "./config.js";
+import { BASE_URL, type ApiResponse } from "./config.js";
 import * as signalR from "@microsoft/signalr";
 
 let connection: signalR.HubConnection;
@@ -66,17 +66,23 @@ export function SendMessageToRoom(message: string, roomId: string) {
   connection.invoke("SendMessageToRoom", roomId, message);
 }
 
+interface BidResponse {
+  status: string;
+  roomId: string;
+  auctionId: string;
+}
+
 export async function MakeBid(roomId: string, bid: number, token: string) {
-  const res = await PostDataWithToken(
+  const res = (await PostDataWithToken(
     `${BASE_URL}/rooms/${roomId}/bid`,
     {
       connectionId: connection.connectionId,
       bidAmountInNaira: bid,
     },
     token
-  );
+  )) as ApiResponse<BidResponse>;
 
-  if (res.status === 200) {
+  if ((res.success = true)) {
     console.log("bid successful");
     return true;
   }

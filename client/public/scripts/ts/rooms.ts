@@ -43,6 +43,24 @@ function SetEventListeners() {
     .addEventListener("click", MakeBidInternal);
 
   document
+    .getElementById("messageInput")!
+    .addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        SendMessageToRoomInternal();
+      }
+    });
+
+  document
+    .getElementById("bidInput")!
+    .addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        MakeBidInternal();
+      }
+    });
+
+  document
     .getElementById("leaveRoomButton")!
     .addEventListener("click", LeaveRoomInternal);
 }
@@ -160,6 +178,7 @@ async function LeaveRoomInternal() {
   }
 
   console.log(`${userId} left ${roomId}`);
+  window.location.href = "./rooms.html";
 }
 
 // get connectionId and store it here.
