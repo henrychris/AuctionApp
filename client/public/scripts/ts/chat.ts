@@ -5,8 +5,7 @@
 
 // placeholder token generation
 // store token in local storage later. or use express jeje
-import { login } from "./auth.js";
-import { USER_EMAIL, USER_PASSWORD } from "./config.js";
+import type { ApiResponse, UserAuthResponse } from "./config.js";
 import {
   SendMessageToRoom,
   StartSignalRConnection,
@@ -14,8 +13,15 @@ import {
   MakeBid,
 } from "./signalRConn.js";
 
-const loginRes = await login(USER_EMAIL, USER_PASSWORD);
-const TOKEN = loginRes!.accessToken;
+let loginRes: UserAuthResponse;
+let TOKEN = "";
+const storedData = JSON.parse(
+  localStorage.getItem("loginRes")!
+) as UserAuthResponse;
+
+loginRes = storedData;
+console.log(loginRes);
+TOKEN = loginRes.accessToken;
 
 function SetEventListeners() {
   document
@@ -81,4 +87,3 @@ async function LeaveRoomInternal() {
 
 SetEventListeners();
 // connect to chatRoom
-StartSignalRConnection(TOKEN);

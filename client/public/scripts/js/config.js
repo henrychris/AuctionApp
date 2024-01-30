@@ -1,5 +1,17 @@
-export const BASE_URL = "http://localhost:5030/api";
-export const ADMIN_EMAIL = "test@email.com";
-export const ADMIN_PASSWORD = "testPassword123@";
-export const USER_EMAIL = "test2@hotmail.com";
-export const USER_PASSWORD = "testPassword123@";
+var __require = (id) => {
+  return import.meta.require(id);
+};
+
+// node_modules/@microsoft/sig
+var BASE_URL = "http://localhost:5030/api";
+var ADMIN_EMAIL = "test@email.com";
+var ADMIN_PASSWORD = "testPassword123@";
+var USER_EMAIL = "test2@hotmail.com";
+var USER_PASSWORD = "testPassword123@";
+export {
+  USER_PASSWORD,
+  USER_EMAIL,
+  BASE_URL,
+  ADMIN_PASSWORD,
+  ADMIN_EMAIL
+};

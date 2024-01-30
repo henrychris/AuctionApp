@@ -3,23 +3,27 @@ import { BASE_URL } from "./config.js";
 import * as signalR from "@microsoft/signalr";
 
 let connection: signalR.HubConnection;
-
-export async function StartSignalRConnection(token: string) {
+export async function StartSignalRConnection(
+  token: string
+): Promise<signalR.HubConnection> {
   connection = new signalR.HubConnectionBuilder()
-    .withAutomaticReconnect()
     .withUrl("http://localhost:5030/auctionHub", {
       accessTokenFactory: () => token,
     })
+    .withAutomaticReconnect()
     .build();
 
   SetSignalRMessageReceivers(connection);
 
   try {
     await connection.start();
+    localStorage.setItem("connectionId", connection.connectionId!);
     console.log("SignalR connection started successfully.");
   } catch (error) {
     console.error("Error starting SignalR connection:", error);
   }
+
+  return connection;
 }
 
 function SetSignalRMessageReceivers(connection: signalR.HubConnection) {
@@ -64,10 +68,11 @@ export function SendMessageToRoom(message: string, roomId: string) {
 }
 
 export async function MakeBid(roomId: string, bid: number, token: string) {
+  var connectionId = localStorage.getItem("connectionId")!;
   const res = await PostDataWithToken(
     `${BASE_URL}/rooms/${roomId}/bid`,
     {
-      connectionId: connection.connectionId,
+      connectionId: connectionId,
       bidAmountInNaira: bid,
     },
     token
@@ -83,10 +88,31 @@ export async function MakeBid(roomId: string, bid: number, token: string) {
 }
 
 export async function LeaveRoom(roomId: string, token: string) {
+  var connectionId = localStorage.getItem("connectionId")!;
+
   const res = await PostDataWithTokenNoRes(
     `${BASE_URL}/rooms/${roomId}/leave`,
     {
-      connectionId: connection.connectionId,
+      connectionId: connectionId,
+    },
+    token
+  );
+
+  if (res.status === 204) {
+    console.log("left");
+    return true;
+  }
+
+  console.error(res);
+  return false;
+}
+
+export async function JoinRoom(roomId: string, token: string) {
+  var connectionId = localStorage.getItem("connectionId")!;
+  const res = await PostDataWithTokenNoRes(
+    `${BASE_URL}/rooms/${roomId}/join`,
+    {
+      connectionId: connectionId,
     },
     token
   );

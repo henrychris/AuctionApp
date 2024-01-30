@@ -1,12 +1,19 @@
+import { BASE_URL, USER_EMAIL, USER_PASSWORD } from "./config.js";
+import { GetDataWithToken } from "./helper.js";
+import { JoinRoom, StartSignalRConnection } from "./signalRConn.js";
+import type { ApiResponse, UserAuthResponse } from "./config.js";
 // placeholder token generation
 // store token in local storage later. or use express jeje
-import { login } from "./auth.js";
-import { BASE_URL } from "./config.js";
-import { GetDataWithToken } from "./helper.js";
 
-const loginRes = await login("test@email.com", "testPassword123@");
+let loginRes: UserAuthResponse;
+let TOKEN = "";
+const storedData = JSON.parse(
+  localStorage.getItem("loginRes")!
+) as UserAuthResponse;
 
-const TOKEN = loginRes!.accessToken;
+loginRes = storedData;
+console.log(loginRes);
+TOKEN = loginRes.accessToken;
 
 interface Rooms {
   items: Room[];
@@ -53,15 +60,29 @@ function createRoomRow(room: Room) {
   // Attach an event listener to the "Join" button
   if (room.status === "Open" || room.status === "open") {
     const joinButton = roomRow.querySelector(".joinRoomButton")!;
-    joinButton.addEventListener("click", () => joinRoom(room.roomId));
+    joinButton.addEventListener("click", () => joinRoomInternal(room.roomId));
   }
 
   return roomRow;
 }
 
 // Sample function to simulate joining a room
-function joinRoom(roomId: string) {
-  alert(`Joining Room ${roomId}`);
+async function joinRoomInternal(roomId: string) {
+  let userId = loginRes!.id;
+
+  if (!roomId) {
+    console.error("Something has gone horribly wrong. There's no room ID!");
+    return;
+  }
+
+  let success = await JoinRoom(roomId, TOKEN);
+  if (!success) {
+    console.log(`${userId} failed to join the room`);
+    return;
+  }
+
+  window.location.href = "chatRoom.html";
+  console.log(`${userId} joined ${roomId}`);
 }
 
 async function main() {
@@ -69,4 +90,6 @@ async function main() {
   await ListRooms(rooms);
 }
 
+// get connectionId and store it here.
+StartSignalRConnection(TOKEN);
 main();

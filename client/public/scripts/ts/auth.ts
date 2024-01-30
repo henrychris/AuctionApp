@@ -1,6 +1,6 @@
 import { postData } from "./helper.js";
 import { BASE_URL } from "./config.js";
-import type { ApiResponse, UserAuthResponse } from "./config.ts";
+import type { ApiResponse, UserAuthResponse } from "./config.js";
 
 export async function login(
   email: string,
@@ -12,6 +12,7 @@ export async function login(
   });
 
   if (res.success) {
+    localStorage.setItem("loginRes", JSON.stringify(res.data));
     return res.data;
   }
 }

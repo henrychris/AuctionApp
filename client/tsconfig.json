@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "lib": ["ESNext", "dom"],
+    "lib": ["esnext", "dom"],
     "target": "esnext",
 
     /* Bundler mode */
@@ -9,6 +9,7 @@
     "allowImportingTsExtensions": false,
     // "emitDeclarationOnly": false,
     "verbatimModuleSyntax": true,
+    // "noEmitOnError": false,
 
     /* Linting */
     "skipLibCheck": true,
@@ -16,7 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./public/scripts/js/",
-    "sourceMap": true
+    "sourceMap": false
   },
 
   "include": ["./public/scripts/ts/*.ts"]

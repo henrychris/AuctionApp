@@ -5,12 +5,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"
-      integrity="sha512-7rhBJh1om/W5Ztx7WiYOR9h2wlSaTmPyQMoHFtbT/FVNIA12y6S6I8HY9mrBS1uJ3dSU/R3qaSAXsGYuRjMDxg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.js"></script> -->
+    <!-- <script type="importmap">
+      {
+        "imports": {
+          "@microsoft/signalr": "https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.js"
+        }
+      }
+    </script> -->
+    <script type="module" src="../scripts/js/chat.js"></script>
   </head>
   <body>
     <nav>
@@ -50,7 +53,5 @@
 
       <button id="leaveRoomButton">Leave Room</button>
     </div>
-
-    <script type="module" src="../scripts/js/chat.js"></script>
   </body>
 </html>
