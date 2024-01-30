@@ -5,14 +5,14 @@
 
 // placeholder token generation
 // store token in local storage later. or use express jeje
-import { login } from "./auth.ts";
-import { USER_EMAIL, USER_PASSWORD } from "./config.ts";
+import { login } from "./auth.js";
+import { USER_EMAIL, USER_PASSWORD } from "./config.js";
 import {
   SendMessageToRoom,
   StartSignalRConnection,
   LeaveRoom,
   MakeBid,
-} from "./signalRConn.ts";
+} from "./signalRConn.js";
 
 const loginRes = await login(USER_EMAIL, USER_PASSWORD);
 const TOKEN = loginRes!.accessToken;

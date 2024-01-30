@@ -1,5 +1,5 @@
-import { postData } from "./helper.ts";
-import { BASE_URL } from "./config.ts";
+import { postData } from "./helper.js";
+import { BASE_URL } from "./config.js";
 import type { ApiResponse, UserAuthResponse } from "./config.ts";
 
 export async function login(

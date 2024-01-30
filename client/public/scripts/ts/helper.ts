@@ -1,4 +1,4 @@
-import type { ApiResponse, UserAuthResponse } from "./config.ts";
+import type { ApiResponse, UserAuthResponse } from "./config.js";
 
 export async function postData(
   url = "",

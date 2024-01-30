@@ -1,8 +1,8 @@
 // placeholder token generation
 // store token in local storage later. or use express jeje
-import { login } from "./auth.ts";
-import { BASE_URL } from "./config.ts";
-import { GetDataWithToken } from "./helper.ts";
+import { login } from "./auth.js";
+import { BASE_URL } from "./config.js";
+import { GetDataWithToken } from "./helper.js";
 
 const loginRes = await login("test@email.com", "testPassword123@");
 

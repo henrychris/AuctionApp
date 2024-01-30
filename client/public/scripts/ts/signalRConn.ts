@@ -1,5 +1,5 @@
-import { PostDataWithToken, PostDataWithTokenNoRes } from "./helper.ts";
-import { BASE_URL } from "./config.ts";
+import { PostDataWithToken, PostDataWithTokenNoRes } from "./helper.js";
+import { BASE_URL } from "./config.js";
 import * as signalR from "@microsoft/signalr";
 
 let connection: signalR.HubConnection;

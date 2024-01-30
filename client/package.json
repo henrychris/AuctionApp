@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun index.ts"
+    "start": "tsc && bun index.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.0.4"

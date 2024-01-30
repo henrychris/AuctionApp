@@ -1,4 +1,4 @@
-import { login, register } from "./auth.ts";
+import { login, register } from "./auth.js";
 
 let loginRes;
 
