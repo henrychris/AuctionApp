@@ -1,49 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="./styles.css" />
-    <title>SignalR Client</title>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"
-      integrity="sha512-7rhBJh1om/W5Ztx7WiYOR9h2wlSaTmPyQMoHFtbT/FVNIA12y6S6I8HY9mrBS1uJ3dSU/R3qaSAXsGYuRjMDxg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>SignalR Client HomePage</title>
   </head>
   <body>
-    <div id="homeScreen">
-      <h1>SignalR Client</h1>
-      <input type="text" id="userName" placeholder="Username" />
-      <input type="text" id="roomId" placeholder="RoomId" />
-      <button id="joinRoom">Join Room</button>
+    <!-- Login Screen -->
+    <div id="loginScreen">
+      <h1>Login</h1>
+      <input type="text" id="loginEmail" placeholder="test@email.com" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button id="loginButton">Login</button>
+      <button id="toggleToRegisterButton">Switch to Register</button>
     </div>
 
-    <div id="chatScreen" style="display: none">
-      <h1 id="roomTitle"></h1>
-      <!-- Display Highest Price and Auction Status -->
-      <div id="auctionInfo" style="margin-top: 10px">
-        <h2 id="currentHighestPrice">
-          Current Highest Price: <span id="highestPriceValue">0 NGN</span>
-        </h2>
-        <h3 id="auctionStatus">
-          Auction Status: <span id="auctionStatusValue">In Progress</span>
-        </h3>
-      </div>
-      <div id="messages"></div>
-      <div>
-        <input
-          type="text"
-          id="messageInput"
-          placeholder="Message"
-          autocomplete="off"
-        />
-        <button id="sendMessageButton">Send</button>
-      </div>
-      <button id="leaveRoom">Leave Room</button>
-      <input type="text" id="bidInput" placeholder="100NGN" />
-      <button id="bidButton">Bid</button>
+    <!-- Register Screen -->
+    <div id="registerScreen" style="display: none">
+      <h1>Register</h1>
+      <input type="text" id="registerFirstName" placeholder="First Name" />
+      <input type="text" id="registerLastName" placeholder="Last Name" />
+      <input type="email" id="registerEmail" placeholder="Email" />
+      <input type="password" id="registerPassword" placeholder="Password" />
+      <button id="registerButton">Register</button>
+      <button id="toggleToLoginButton">Switch to Login</button>
     </div>
 
-    <script type="module" src="./script.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
