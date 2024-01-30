@@ -17,6 +17,13 @@ function SetEventListeners() {
     .getElementById("loginButton")!
     .addEventListener("click", loginInternal);
 
+  window.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      loginInternal();
+    }
+  });
+
   document
     .getElementById("registerButton")!
     .addEventListener("click", registerInternal);

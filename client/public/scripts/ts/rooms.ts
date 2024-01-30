@@ -18,7 +18,9 @@ const storedData = JSON.parse(
 ) as UserAuthResponse;
 
 loginRes = storedData;
-console.log(loginRes);
+if (loginRes) {
+  console.log("retrieved access token");
+}
 TOKEN = loginRes.accessToken;
 
 interface Rooms {
