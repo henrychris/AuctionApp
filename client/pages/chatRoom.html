@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/chatRoom.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"
+      integrity="sha512-7rhBJh1om/W5Ztx7WiYOR9h2wlSaTmPyQMoHFtbT/FVNIA12y6S6I8HY9mrBS1uJ3dSU/R3qaSAXsGYuRjMDxg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <!-- Chat Page -->
+    <div id="chatScreen">
+      <h1 id="roomId">biddingRoom1</h1>
+
+      <!-- Display Highest Price and Auction Status -->
+      <div id="auctionInfo" style="margin-top: 10px">
+        <h2 id="currentHighestPrice">
+          Current Highest Price: <span id="highestPriceValue">0 NGN</span>
+        </h2>
+        <h3 id="auctionStatus">
+          Auction Status: <span id="auctionStatusValue">In Progress</span>
+        </h3>
+      </div>
+
+      <!-- Message Display -->
+      <div id="messages"></div>
+      <div>
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Message"
+          autocomplete="off"
+        />
+        <button id="sendMessageButton">Send</button>
+      </div>
+      <div>
+        <input type="text" id="bidInput" placeholder="100NGN" />
+        <button id="bidButton">Bid</button>
+      </div>
+
+      <button id="leaveRoomButton">Leave Room</button>
+    </div>
+
+    <script type="module" src="../scripts/chat.js"></script>
+  </body>
+</html>

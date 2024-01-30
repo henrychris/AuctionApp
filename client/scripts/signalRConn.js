@@ -1,40 +1,27 @@
-import { postData, leaveRoom, BASE_URL } from "./helper.js";
+import { PostDataWithToken, PostDataWithTokenNoRes } from "./helper.js";
+import { BASE_URL } from "./config.js";
 
-import {
-  showChatScreen,
-  showLoginScreen,
-  showRoomListScreen,
-} from "./showScreen.js";
+let connection;
 
-async function main() {
-  try {
-    // Wait for the login to complete and get the token
-    // loginRes = await login();
-    // Start the SignalR connection after obtaining the token
-    // await startSignalRConnection();
-    // Add any other initialization steps here if needed
-  } catch (error) {
-    // console.error("Error during initialization:", error);
-  }
-}
-
-async function login() {
-  const res = await postData(`${BASE_URL}/auth/login`, {
-    emailAddress: "test2@hotmail.com",
-    password: "testPassword123@",
-  });
-
-  return res.data;
-}
-
-async function startSignalRConnection() {
-  const connection = new signalR.HubConnectionBuilder()
+export async function StartSignalRConnection(TOKEN) {
+  connection = new signalR.HubConnectionBuilder()
     .withAutomaticReconnect()
     .withUrl("http://localhost:5030/auctionHub", {
-      accessTokenFactory: () => loginRes.accessToken,
+      accessTokenFactory: () => TOKEN,
     })
     .build();
 
+  SetSignalRMessageReceivers(connection);
+
+  try {
+    await connection.start();
+    console.log("SignalR connection started successfully.");
+  } catch (error) {
+    console.error("Error starting SignalR connection:", error);
+  }
+}
+
+function SetSignalRMessageReceivers(connection) {
   connection.on("ReceiveMessage", function (msg) {
     console.log("hit");
     const messages = document.getElementById("messages");
@@ -68,19 +55,46 @@ async function startSignalRConnection() {
     const messages = document.getElementById("messages");
     const user = `<span style="font-weight: bold">${msg.userName}: </span>`;
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
-
-    const highestBid = document.getElementById("highestPriceValue");
-    highestBid.innerText = amount + " NGN";
   });
-
-  try {
-    // Start the SignalR connection
-    await connection.start();
-    console.log("SignalR connection started successfully.");
-  } catch (error) {
-    console.error("Error starting SignalR connection:", error);
-  }
 }
 
-// The main function is called to kick off the initialization process
-// main().catch(console.error);
+export function SendMessageToRoom(message, roomId) {
+  connection.invoke("SendMessageToRoom", roomId, message);
+}
+
+export async function MakeBid(roomId, bid, token) {
+  const res = await PostDataWithToken(
+    `${BASE_URL}/rooms/${roomId}/bid`,
+    {
+      connectionId: connection.connectionId,
+      bidAmountInNaira: bid,
+    },
+    token
+  );
+
+  if (res.status === 200) {
+    console.log("bid successful");
+    return true;
+  }
+
+  console.error(res.json());
+  return false;
+}
+
+export async function LeaveRoom(roomId, token) {
+  const res = await PostDataWithTokenNoRes(
+    `${BASE_URL}/rooms/${roomId}/leave`,
+    {
+      connectionId: connection.connectionId,
+    },
+    token
+  );
+
+  if (res.status === 204) {
+    console.log("left");
+    return true;
+  }
+
+  console.error(res);
+  return false;
+}
