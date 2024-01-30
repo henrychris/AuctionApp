@@ -6,33 +6,36 @@
 // placeholder token generation
 // store token in local storage later. or use express jeje
 import { login } from "./auth.js";
-import { USER_EMAIL, USER_PASSWORD } from "./config.js";
+import { USER_EMAIL, USER_PASSWORD } from "./config.ts";
 import {
   SendMessageToRoom,
   StartSignalRConnection,
   LeaveRoom,
-} from "./signalRConn.js";
+  MakeBid,
+} from "./signalRConn.ts";
 
 const loginRes = await login(USER_EMAIL, USER_PASSWORD);
 const TOKEN = loginRes.accessToken;
 
 function SetEventListeners() {
   document
-    .getElementById("sendMessageButton")
+    .getElementById("sendMessageButton")!
     .addEventListener("click", SendMessageToRoomInternal);
 
   document
-    .getElementById("bidButton")
+    .getElementById("bidButton")!
     .addEventListener("click", MakeBidInternal);
 
   document
-    .getElementById("leaveRoomButton")
+    .getElementById("leaveRoomButton")!
     .addEventListener("click", LeaveRoomInternal);
 }
 
 function SendMessageToRoomInternal() {
-  const messageInput = document.getElementById("messageInput");
-  const roomId = document.getElementById("roomId").innerText;
+  const messageInput = document.getElementById(
+    "messageInput"
+  ) as HTMLInputElement;
+  const roomId = document.getElementById("roomId")!.innerText;
 
   if (messageInput.value && roomId) {
     SendMessageToRoom(messageInput.value, roomId);
@@ -44,11 +47,13 @@ function SendMessageToRoomInternal() {
 }
 
 async function MakeBidInternal() {
-  const bidInput = document.getElementById("bidInput");
-  const roomId = document.getElementById("roomId").innerText;
+  const bidInput = document.getElementById("bidInput") as HTMLInputElement;
+  const roomId = (document.getElementById("roomId") as HTMLInputElement)
+    .innerText;
 
   if (bidInput.value && roomId) {
-    await MakeBid(roomId, bidInput.value, TOKEN);
+    const bidValue = parseFloat(bidInput.value);
+    await MakeBid(roomId, bidValue, TOKEN);
     bidInput.value = "";
   } else {
     console.error("Input a value before sending a bid!");
@@ -57,13 +62,14 @@ async function MakeBidInternal() {
 
 async function LeaveRoomInternal() {
   let userId = loginRes.id;
-  const roomId = document.getElementById("roomId").innerText;
+  const roomIdInput = document.getElementById("roomId");
 
-  if (!roomId) {
+  if (!roomIdInput) {
     console.error("Something has gone horribly wrong. There's no room ID!");
     return;
   }
 
+  const roomId = roomIdInput.innerText;
   let success = await LeaveRoom(roomId, TOKEN);
   if (!success) {
     console.log(`${userId} failed to leave the room`);

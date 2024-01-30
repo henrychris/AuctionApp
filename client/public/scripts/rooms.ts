@@ -8,28 +8,38 @@ const loginRes = await login("test@email.com", "testPassword123@");
 
 const TOKEN = loginRes.accessToken;
 
+interface Rooms {
+  items: Room[];
+}
+
+interface Room {
+  status: string;
+  auctionId: string;
+  roomId: string;
+}
+
 function SetEventListeners() {}
 
-async function GetRooms(TOKEN) {
+async function GetRooms(token: string) {
   const queryParams = "?status=open&pageNumber=1&pageSize=10";
   const rooms = await GetDataWithToken(
     `${BASE_URL}/rooms/all${queryParams}`,
-    TOKEN
+    token
   );
 
-  return rooms.data.items;
+  return rooms.data as Rooms;
 }
 
-async function ListRooms(rooms) {
-  const roomTable = document.getElementById("roomTable");
+async function ListRooms(rooms: Rooms) {
+  const roomTable = document.getElementById("roomTable")!;
 
-  for (const room of rooms) {
+  for (const room of rooms.items) {
     const roomRow = createRoomRow(room);
     roomTable.appendChild(roomRow);
   }
 }
 
-function createRoomRow(room) {
+function createRoomRow(room: Room) {
   const roomRow = document.createElement("tr");
   roomRow.classList.add("room-row");
 
@@ -42,7 +52,7 @@ function createRoomRow(room) {
 
   // Attach an event listener to the "Join" button
   if (room.status === "Open" || room.status === "open") {
-    const joinButton = roomRow.querySelector(".joinRoomButton");
+    const joinButton = roomRow.querySelector(".joinRoomButton")!;
     joinButton.addEventListener("click", () => joinRoom(room.roomId));
   }
 
@@ -50,7 +60,7 @@ function createRoomRow(room) {
 }
 
 // Sample function to simulate joining a room
-function joinRoom(roomId) {
+function joinRoom(roomId: string) {
   alert(`Joining Room ${roomId}`);
 }
 

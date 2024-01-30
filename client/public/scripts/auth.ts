@@ -1,7 +1,7 @@
-import { postData } from "./helper.js";
-import { BASE_URL } from "./config.js";
+import { postData } from "./helper.ts";
+import { BASE_URL } from "./config.ts";
 
-export async function login(email, password) {
+export async function login(email: string, password: string) {
   const res = await postData(`${BASE_URL}/auth/login`, {
     emailAddress: email,
     password: password,
@@ -10,7 +10,12 @@ export async function login(email, password) {
   return res.data;
 }
 
-export async function register(firstName, lastName, email, password) {
+export async function register(
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string
+) {
   const role = "User";
 
   const res = await postData(`${BASE_URL}/auth/register`, {

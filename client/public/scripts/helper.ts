@@ -14,7 +14,7 @@ export async function postData(url = "", data = {}) {
   return response.json();
 }
 
-export async function PostDataWithToken(url = "", data = {}, token) {
+export async function PostDataWithToken(url = "", data = {}, token: string) {
   const response = await fetch(url, {
     method: "POST",
     mode: "cors",
@@ -31,7 +31,7 @@ export async function PostDataWithToken(url = "", data = {}, token) {
   return response.json();
 }
 
-export async function PostDataWithTokenNoRes(url = "", data = {}, token) {
+export async function PostDataWithTokenNoRes(url = "", data = {}, token: string) {
   const response = await fetch(url, {
     method: "POST",
     mode: "cors",
@@ -48,7 +48,7 @@ export async function PostDataWithTokenNoRes(url = "", data = {}, token) {
   return response;
 }
 
-export async function GetDataWithToken(url = "", token) {
+export async function GetDataWithToken(url = "", token: string) {
   const response = await fetch(url, {
     method: "GET",
     mode: "cors",

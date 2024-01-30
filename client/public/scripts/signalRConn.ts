@@ -1,13 +1,14 @@
 import { PostDataWithToken, PostDataWithTokenNoRes } from "./helper.js";
 import { BASE_URL } from "./config.js";
+import * as signalR from "@microsoft/signalr";
 
-let connection;
+let connection: signalR.HubConnection;
 
-export async function StartSignalRConnection(TOKEN) {
+export async function StartSignalRConnection(token: string) {
   connection = new signalR.HubConnectionBuilder()
     .withAutomaticReconnect()
     .withUrl("http://localhost:5030/auctionHub", {
-      accessTokenFactory: () => TOKEN,
+      accessTokenFactory: () => token,
     })
     .build();
 
@@ -21,10 +22,10 @@ export async function StartSignalRConnection(TOKEN) {
   }
 }
 
-function SetSignalRMessageReceivers(connection) {
+function SetSignalRMessageReceivers(connection: signalR.HubConnection) {
   connection.on("ReceiveMessage", function (msg) {
     console.log("hit");
-    const messages = document.getElementById("messages");
+    const messages = document.getElementById("messages")!;
     const user = `<span style="font-weight: bold">${msg.userName}: </span>`;
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
   });
@@ -33,36 +34,36 @@ function SetSignalRMessageReceivers(connection) {
     console.log("hit");
     const messages = document.getElementById("messages");
     const user = `<span style="font-weight: bold">Admin: </span>`;
-    messages.innerHTML += `<p>${user}<span>${msg}</span></p>`;
+    messages!.innerHTML += `<p>${user}<span>${msg}</span></p>`;
 
-    const auctionStatus = document.getElementById("auctionStatusValue");
+    const auctionStatus = document.getElementById("auctionStatusValue")!;
     auctionStatus.innerText = "In Progress";
   });
 
   connection.on("UserJoined", function (msg) {
-    const messages = document.getElementById("messages");
+    const messages = document.getElementById("messages")!;
     const user = `<span style="font-weight: bold">${msg} </span>`;
     messages.innerHTML += `<p style="color:grey">${user}has joined.</p>`;
   });
 
   connection.on("UserLeft", function (msg) {
-    const messages = document.getElementById("messages");
+    const messages = document.getElementById("messages")!;
     const user = `<span style="font-weight: bold">${msg} </span>`;
     messages.innerHTML += `<p style="color:grey">${user}has left.</p>`;
   });
 
   connection.on("BidPlaced", function (msg, amount) {
-    const messages = document.getElementById("messages");
+    const messages = document.getElementById("messages")!;
     const user = `<span style="font-weight: bold">${msg.userName}: </span>`;
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
   });
 }
 
-export function SendMessageToRoom(message, roomId) {
+export function SendMessageToRoom(message: string, roomId: string) {
   connection.invoke("SendMessageToRoom", roomId, message);
 }
 
-export async function MakeBid(roomId, bid, token) {
+export async function MakeBid(roomId: string, bid: number, token: string) {
   const res = await PostDataWithToken(
     `${BASE_URL}/rooms/${roomId}/bid`,
     {
@@ -81,7 +82,7 @@ export async function MakeBid(roomId, bid, token) {
   return false;
 }
 
-export async function LeaveRoom(roomId, token) {
+export async function LeaveRoom(roomId: string, token: string) {
   const res = await PostDataWithTokenNoRes(
     `${BASE_URL}/rooms/${roomId}/leave`,
     {
