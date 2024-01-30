@@ -81,6 +81,22 @@ body {
   margin: 20px;
 }
 
+nav {
+  color: #333;
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+}
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
 /* Style for chatScreen section */
 #chatScreen {
   margin-top: 20px;
