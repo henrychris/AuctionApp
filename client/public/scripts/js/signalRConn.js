@@ -1,9 +1,10 @@
 import { PostDataWithToken, PostDataWithTokenNoRes } from "./helper.js";
 import { BASE_URL } from "./config.js";
-import * as signalR from "@microsoft/signalr";
+// import * as signalR from "@microsoft/signalr";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 let connection;
 export async function StartSignalRConnection(token) {
-    connection = new signalR.HubConnectionBuilder()
+    connection = new HubConnectionBuilder()
         .withAutomaticReconnect()
         .withUrl("http://localhost:5030/auctionHub", {
         accessTokenFactory: () => token,
@@ -75,4 +76,14 @@ export async function LeaveRoom(roomId, token) {
     console.error(res);
     return false;
 }
-//# sourceMappingURL=signalRConn.js.map
+export async function JoinRoom(roomId, token) {
+    const res = await PostDataWithTokenNoRes(`${BASE_URL}/rooms/${roomId}/join`, {
+        connectionId: connection.connectionId,
+    }, token);
+    if (res.status === 204) {
+        console.log("left");
+        return true;
+    }
+    console.error(res);
+    return false;
+}

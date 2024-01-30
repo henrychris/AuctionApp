@@ -1,8 +1,9 @@
-// placeholder token generation
-// store token in local storage later. or use express jeje
 import { login } from "./auth.js";
 import { BASE_URL } from "./config.js";
 import { GetDataWithToken } from "./helper.js";
+import { JoinRoom, StartSignalRConnection } from "./signalRConn.js";
+// placeholder token generation
+// store token in local storage later. or use express jeje
 const loginRes = await login("test@email.com", "testPassword123@");
 const TOKEN = loginRes.accessToken;
 function SetEventListeners() { }
@@ -30,17 +31,28 @@ function createRoomRow(room) {
     // Attach an event listener to the "Join" button
     if (room.status === "Open" || room.status === "open") {
         const joinButton = roomRow.querySelector(".joinRoomButton");
-        joinButton.addEventListener("click", () => joinRoom(room.roomId));
+        joinButton.addEventListener("click", () => joinRoomInternal(room.roomId));
     }
     return roomRow;
 }
 // Sample function to simulate joining a room
-function joinRoom(roomId) {
-    alert(`Joining Room ${roomId}`);
+async function joinRoomInternal(roomId) {
+    let userId = loginRes.id;
+    if (!roomId) {
+        console.error("Something has gone horribly wrong. There's no room ID!");
+        return;
+    }
+    let success = await JoinRoom(roomId, TOKEN);
+    if (!success) {
+        console.log(`${userId} failed to join the room`);
+        return;
+    }
+    window.location.href = "chatRoom.html";
+    console.log(`${userId} joined ${roomId}`);
 }
 async function main() {
     const rooms = await GetRooms(TOKEN);
     await ListRooms(rooms);
 }
+StartSignalRConnection(TOKEN);
 main();
-//# sourceMappingURL=rooms.js.map

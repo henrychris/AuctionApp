@@ -55,4 +55,3 @@ export async function GetDataWithToken(url = "", token) {
     });
     return response.json();
 }
-//# sourceMappingURL=helper.js.map

@@ -22,4 +22,3 @@ export async function register(firstName, lastName, email, password) {
         return res.data;
     }
 }
-//# sourceMappingURL=auth.js.map

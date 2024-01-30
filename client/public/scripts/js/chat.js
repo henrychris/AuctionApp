@@ -62,5 +62,4 @@ async function LeaveRoomInternal() {
 }
 SetEventListeners();
 // connect to chatRoom
-StartSignalRConnection(TOKEN);
-//# sourceMappingURL=chat.js.map
+// StartSignalRConnection(TOKEN);

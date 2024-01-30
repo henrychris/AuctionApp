@@ -61,4 +61,3 @@ async function registerInternal() {
         console.error("Error during registration:", error);
     }
 }
-//# sourceMappingURL=index.js.map
