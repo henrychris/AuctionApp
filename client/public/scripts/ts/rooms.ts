@@ -1,12 +1,12 @@
 // placeholder token generation
 // store token in local storage later. or use express jeje
-import { login } from "./auth.js";
-import { BASE_URL } from "./config.js";
-import { GetDataWithToken } from "./helper.js";
+import { login } from "./auth.ts";
+import { BASE_URL } from "./config.ts";
+import { GetDataWithToken } from "./helper.ts";
 
 const loginRes = await login("test@email.com", "testPassword123@");
 
-const TOKEN = loginRes.accessToken;
+const TOKEN = loginRes!.accessToken;
 
 interface Rooms {
   items: Room[];

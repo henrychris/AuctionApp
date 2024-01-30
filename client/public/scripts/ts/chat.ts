@@ -5,7 +5,7 @@
 
 // placeholder token generation
 // store token in local storage later. or use express jeje
-import { login } from "./auth.js";
+import { login } from "./auth.ts";
 import { USER_EMAIL, USER_PASSWORD } from "./config.ts";
 import {
   SendMessageToRoom,
@@ -15,7 +15,7 @@ import {
 } from "./signalRConn.ts";
 
 const loginRes = await login(USER_EMAIL, USER_PASSWORD);
-const TOKEN = loginRes.accessToken;
+const TOKEN = loginRes!.accessToken;
 
 function SetEventListeners() {
   document
@@ -61,7 +61,7 @@ async function MakeBidInternal() {
 }
 
 async function LeaveRoomInternal() {
-  let userId = loginRes.id;
+  let userId = loginRes!.id;
   const roomIdInput = document.getElementById("roomId");
 
   if (!roomIdInput) {

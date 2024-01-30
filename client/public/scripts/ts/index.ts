@@ -1,6 +1,6 @@
-import { login, register } from "./auth.js";
+import { login, register } from "./auth.ts";
 
-let loginRes = { accessToken: "", role: "", id: "" };
+let loginRes;
 
 SetEventListeners();
 

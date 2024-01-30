@@ -1,4 +1,9 @@
-export async function postData(url = "", data = {}) {
+import type { ApiResponse, UserAuthResponse } from "./config.ts";
+
+export async function postData(
+  url = "",
+  data = {}
+): Promise<ApiResponse<UserAuthResponse>> {
   const response = await fetch(url, {
     method: "POST",
     mode: "cors",
@@ -11,7 +16,7 @@ export async function postData(url = "", data = {}) {
     body: JSON.stringify(data),
   });
 
-  return response.json();
+  return response.json() as unknown as ApiResponse<UserAuthResponse>;
 }
 
 export async function PostDataWithToken(url = "", data = {}, token: string) {
@@ -31,7 +36,11 @@ export async function PostDataWithToken(url = "", data = {}, token: string) {
   return response.json();
 }
 
-export async function PostDataWithTokenNoRes(url = "", data = {}, token: string) {
+export async function PostDataWithTokenNoRes(
+  url = "",
+  data = {},
+  token: string
+) {
   const response = await fetch(url, {
     method: "POST",
     mode: "cors",

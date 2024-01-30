@@ -1,13 +1,19 @@
 import { postData } from "./helper.ts";
 import { BASE_URL } from "./config.ts";
+import type { ApiResponse, UserAuthResponse } from "./config.ts";
 
-export async function login(email: string, password: string) {
+export async function login(
+  email: string,
+  password: string
+): Promise<UserAuthResponse | undefined> {
   const res = await postData(`${BASE_URL}/auth/login`, {
     emailAddress: email,
     password: password,
   });
 
-  return res.data;
+  if (res.success) {
+    return res.data;
+  }
 }
 
 export async function register(
@@ -15,7 +21,7 @@ export async function register(
   lastName: string,
   email: string,
   password: string
-) {
+): Promise<UserAuthResponse | undefined> {
   const role = "User";
 
   const res = await postData(`${BASE_URL}/auth/register`, {
@@ -26,5 +32,7 @@ export async function register(
     role: role,
   });
 
-  return res.data;
+  if (res.success) {
+    return res.data;
+  }
 }
