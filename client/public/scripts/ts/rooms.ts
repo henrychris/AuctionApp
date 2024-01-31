@@ -8,7 +8,7 @@ import {
   StartSignalRConnection,
 } from "./signalRConn.js";
 import type { ApiResponse, UserAuthResponse } from "./config.js";
-import { getAuctionData } from "./api.js";
+import { GetUserDetails, getAuctionData } from "./api.js";
 // placeholder token generation
 // store token in local storage later. or use express jeje
 
@@ -64,6 +64,8 @@ function SetEventListeners() {
   document
     .getElementById("leaveRoomButton")!
     .addEventListener("click", LeaveRoomInternal);
+
+  window.onload = SetUserName;
 }
 
 async function GetRooms(token: string) {
@@ -203,7 +205,7 @@ function addMutationObserver() {
 
 async function loadAuctionData() {
   console.log("Loading auction data.");
-  
+
   const roomId = localStorage.getItem("currentRoomId");
   if (!roomId) {
     throw new Error("current roomId not set!");
@@ -218,6 +220,14 @@ async function loadAuctionData() {
   roomIdElement.innerText = roomId;
   highestBidElement.innerText = auctionData.highestBidAmountInNaira + " NGN";
   statusElement.innerText = auctionData.auctionStatus;
+}
+
+async function SetUserName() {
+  console.log("Setting user name...");
+
+  var userName = await GetUserDetails(loginRes.id, TOKEN);
+  const loggedInUsername = document.getElementById("loggedInUsername")!;
+  loggedInUsername.innerText = userName.firstName;
 }
 
 // get connectionId and store it here.

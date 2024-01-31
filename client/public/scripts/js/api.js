@@ -73,6 +73,11 @@ async function getAuctionData(roomId, TOKEN) {
   var res = await GetDataWithToken(BASE_URL + `/rooms/${roomId}/data`, TOKEN);
   return res.data;
 }
+async function GetUserDetails(userId, TOKEN) {
+  const res = await GetDataWithToken(`${BASE_URL}/user/${userId}`, TOKEN);
+  return res.data;
+}
 export {
-  getAuctionData
+  getAuctionData,
+  GetUserDetails
 };
