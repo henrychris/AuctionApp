@@ -89,6 +89,7 @@ async function register(firstName, lastName, email, password) {
     role
   });
   if (res.success) {
+    localStorage.setItem("loginRes", JSON.stringify(res.data));
     return res.data;
   }
 }

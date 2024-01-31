@@ -34,6 +34,7 @@ export async function register(
   });
 
   if (res.success) {
+    localStorage.setItem("loginRes", JSON.stringify(res.data));
     return res.data;
   }
 }

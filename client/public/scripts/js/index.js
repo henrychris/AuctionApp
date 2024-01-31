@@ -89,6 +89,7 @@ async function register(firstName, lastName, email, password) {
     role
   });
   if (res.success) {
+    localStorage.setItem("loginRes", JSON.stringify(res.data));
     return res.data;
   }
 }
@@ -144,6 +145,7 @@ async function registerInternal() {
   try {
     loginRes = await register(firstName, lastName, email, password);
     console.log(loginRes);
+    window.location.href = "./pages/rooms.html";
   } catch (error) {
     console.error("Error during registration:", error);
   }

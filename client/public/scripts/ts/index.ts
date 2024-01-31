@@ -84,6 +84,7 @@ async function registerInternal() {
   try {
     loginRes = await register(firstName, lastName, email, password);
     console.log(loginRes);
+    window.location.href = "./pages/rooms.html";
   } catch (error) {
     console.error("Error during registration:", error);
   }
