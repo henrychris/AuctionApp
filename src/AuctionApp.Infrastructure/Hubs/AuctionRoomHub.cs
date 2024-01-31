@@ -28,4 +28,16 @@ public class AuctionRoomHub(ILogger<AuctionRoomHub> logger) : Hub
         var message = new Message(GetUserName(), content);
         await Clients.Group(roomId).SendAsync("ReceiveMessage", message);
     }
+
+    public async Task JoinRoom(string connectionId, string roomId)
+    {
+        await Groups.AddToGroupAsync(connectionId, roomId);
+        await Clients.Group(roomId).SendAsync("UserJoined", GetUserName());
+    }
+
+    public async Task LeaveRoom(string connectionId, string roomId)
+    {
+        await Groups.RemoveFromGroupAsync(connectionId, roomId);
+        await Clients.Group(roomId).SendAsync("UserLeft", GetUserName());
+    }
 }

@@ -34,19 +34,6 @@ namespace AuctionApp.Infrastructure.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task AddUserToRoom(string roomId, string userName, string connectionId)
-        {
-            await hubContext.Groups.AddToGroupAsync(connectionId, roomId);
-            await hubContext.Clients.Group(roomId).SendAsync("UserJoined", userName);
-        }
-
-        public async Task RemoveUserFromRoom(string userId, string roomId, string connectionId)
-        {
-            var user = await context.Users.FindAsync(userId);
-            await hubContext.Groups.RemoveFromGroupAsync(connectionId, roomId);
-            await hubContext.Clients.Group(roomId).SendAsync("UserLeft", user!.FirstName);
-        }
-
         public async Task SendAuctionStartMessageToClientsAsync(string roomId, string productName,
                                                                 decimal startingPriceInNaira)
         {

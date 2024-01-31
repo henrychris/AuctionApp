@@ -95,37 +95,11 @@ export async function MakeBid(roomId: string, bid: number, token: string) {
 }
 
 export async function LeaveRoom(roomId: string, token: string) {
-  const res = await PostDataWithTokenNoRes(
-    `${BASE_URL}/rooms/${roomId}/leave`,
-    {
-      connectionId: connection.connectionId,
-    },
-    token
-  );
-
-  if (res.status === 204) {
-    console.log("left");
-    return true;
-  }
-
-  console.error(res);
-  return false;
+  connection.invoke("LeaveRoom", connection.connectionId, roomId);
+  return true;
 }
 
 export async function JoinRoom(roomId: string, token: string) {
-  const res = await PostDataWithTokenNoRes(
-    `${BASE_URL}/rooms/${roomId}/join`,
-    {
-      connectionId: connection.connectionId,
-    },
-    token
-  );
-
-  if (res.status === 204) {
-    console.log("left");
-    return true;
-  }
-
-  console.error(res);
-  return false;
+  connection.invoke("JoinRoom", connection.connectionId, roomId);
+  return true;
 }

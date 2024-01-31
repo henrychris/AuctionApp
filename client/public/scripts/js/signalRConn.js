@@ -633,7 +633,7 @@ class XhrHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.j
 class DefaultHttpClient extends HttpClient {
   constructor(logger) {
     super();
@@ -662,7 +662,7 @@ class DefaultHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.j
 class TextMessageFormat {
   static write(output) {
     return `${output}${TextMessageFormat.RecordSeparator}`;
@@ -679,7 +679,7 @@ class TextMessageFormat {
 TextMessageFormat.RecordSeparatorCode = 30;
 TextMessageFormat.RecordSeparator = String.fromCharCode(TextMessageFormat.RecordSeparatorCode);
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.j
 class HandshakeProtocol {
   writeHandshakeRequest(handshakeRequest) {
     return TextMessageFormat.write(JSON.stringify(handshakeRequest));
@@ -1660,7 +1660,7 @@ class HubConnection {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjssport
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jsport
 var DEFAULT_RETRY_DELAYS_IN_MILLISECONDS = [0, 2000, 1e4, 30000, null];
 
 class DefaultReconnectPolicy {
@@ -1678,7 +1678,7 @@ class HeaderNames {
 HeaderNames.Authorization = "Authorization";
 HeaderNames.Cookie = "Cookie";
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspor
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jspor
 class AccessTokenHttpClient extends HttpClient {
   constructor(innerClient, accessTokenFactory) {
     super();
@@ -1753,7 +1753,7 @@ class AbortController2 {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspo
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jspo
 class LongPollingTransport {
   get pollAborted() {
     return this._pollAbort.aborted;
@@ -1898,7 +1898,7 @@ class LongPollingTransport {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjssport.js
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jsport.js
 class ServerSentEventsTransport {
   constructor(httpClient, accessToken, logger, options) {
     this._httpClient = httpClient;
@@ -1986,7 +1986,7 @@ class ServerSentEventsTransport {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjss
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.js
 class WebSocketTransport {
   constructor(httpClient, accessTokenFactory, logger, logMessageContent, webSocketConstructor, headers) {
     this._logger = logger;
@@ -2701,7 +2701,7 @@ class JsonHubProtocol {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspo
+// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jspo
 var parseLogLevel = function(name) {
   const mapping = LogLevelNameMapping[name.toLowerCase()];
   if (typeof mapping !== "undefined") {
@@ -2863,26 +2863,12 @@ async function MakeBid(roomId, bid, token) {
   return false;
 }
 async function LeaveRoom(roomId, token) {
-  const res = await PostDataWithTokenNoRes(`${BASE_URL}/rooms/${roomId}/leave`, {
-    connectionId: connection.connectionId
-  }, token);
-  if (res.status === 204) {
-    console.log("left");
-    return true;
-  }
-  console.error(res);
-  return false;
+  connection.invoke("LeaveRoom", connection.connectionId, roomId);
+  return true;
 }
 async function JoinRoom(roomId, token) {
-  const res = await PostDataWithTokenNoRes(`${BASE_URL}/rooms/${roomId}/join`, {
-    connectionId: connection.connectionId
-  }, token);
-  if (res.status === 204) {
-    console.log("left");
-    return true;
-  }
-  console.error(res);
-  return false;
+  connection.invoke("JoinRoom", connection.connectionId, roomId);
+  return true;
 }
 var connection;
 export {
