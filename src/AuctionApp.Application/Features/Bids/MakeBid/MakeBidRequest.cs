@@ -65,6 +65,7 @@ public class MakeBidRequestHandler(
         var bid = BidMapper.CreateBid(request, currentUser.UserId);
         await bidService.CreateBidAsync(bid);
 
+        room.Bids.Add(bid);
         room.Auction.HighestBidAmountInKobo = CurrencyConverter.ConvertNairaToKobo(request.BidAmountInNaira);
         room.Auction.HighestBidderId = currentUser.UserId;
         await roomService.UpdateRoomAsync(room);
