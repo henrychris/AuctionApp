@@ -1,7 +1,11 @@
 using AuctionApp.Application.Contracts;
+using AuctionApp.Application.Features.Invoices;
+using AuctionApp.Application.Features.Invoices.CreateInvoice;
 using AuctionApp.Domain.Entities;
 using AuctionApp.Domain.Enums;
 using AuctionApp.Domain.ServiceErrors;
+
+using MassTransit;
 
 using MediatR;
 
@@ -18,6 +22,7 @@ public class EndRoomAuctionRequest : IRequest<ErrorOr<Success>>
 public class EndRoomAuctionRequestHandler(
     IRoomService roomService,
     UserManager<User> userManager,
+    IBus bus,
     ILogger<EndRoomAuctionRequest> logger)
     : IRequestHandler<EndRoomAuctionRequest, ErrorOr<Success>>
 {
@@ -43,20 +48,29 @@ public class EndRoomAuctionRequestHandler(
 
         roomWithAuction.Auction.Status = AuctionStatus.AwaitingPayment;
         roomWithAuction.Status = RoomStatus.Closed;
-        
-        var highestBid = roomWithAuction.Auction.HighestBidAmountInKobo;
-        var highestBidderId =
-            roomWithAuction.Auction.HighestBidderId!;
+
+        // get bid details
+        var highestBidAmountInKobo = roomWithAuction.Auction.HighestBidAmountInKobo;
+        var highestBidderId = roomWithAuction.Auction.HighestBidderId!;
+        var highestBid = roomWithAuction.Bids
+                                        .FirstOrDefault(x => x.UserId == highestBidderId &&
+                                                             x.AmountInKobo == highestBidAmountInKobo)!;
+
         var user = await userManager.FindByIdAsync(highestBidderId);
 
+        // update the room and announce the end of the auction
         await roomService.UpdateRoomAsync(roomWithAuction);
         await roomService.AnnounceEndOfAuction(new EndAuctionDto(request.RoomId,
-            user!.FirstName, highestBid));
+            user!.FirstName, highestBidAmountInKobo));
+
+        // kick all users from the group
         await roomService.KickAllUsersFromGroup(request.RoomId);
 
-        // todo: process invoice. need to get all details then queue message
+        logger.LogInformation("Ended auction for room {roomId}.", request.RoomId);
+        // process invoice
+        await bus.Publish(InvoiceMapper.ToCreateInvoiceRequest(roomWithAuction, user, highestBid.Id),
+            CancellationToken.None);
+        logger.LogInformation("Published invoice creation request for room {roomId}.", request.RoomId);
         return Result.Success;
     }
 }
-
-// queue invoice creation and email sending

@@ -25,6 +25,6 @@ body {
 #successMessage {
   display: none;
   margin-top: 20px;
-  color: green;
+  color: black;
   font-weight: bold;
 }

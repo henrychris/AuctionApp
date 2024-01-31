@@ -1,6 +1,13 @@
+import { BASE_URL } from "./config";
+
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
+  const id = urlParams.get("invoiceId");
+
+  if (!id) {
+    console.error("Invoice ID is missing.");
+    // return;
+  }
 
   const paymentContainer = document.getElementById("paymentContainer")!;
   const successMessage = document.getElementById("successMessage")!;
@@ -9,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   completePaymentBtn.addEventListener("click", async () => {
     try {
       // Assume your API endpoint for completing payment
-      const response = await fetch(`https://example.com/api/payment/${id}`, {
+      const response = await fetch(`${BASE_URL}/payment/complete/${id}`, {
         method: "POST",
         // Add headers or other configurations if needed
       });

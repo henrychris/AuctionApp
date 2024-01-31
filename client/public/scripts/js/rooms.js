@@ -2849,7 +2849,7 @@ var SetSignalRMessageReceivers = function(connection) {
   connection.on("AuctionEnded", function(winnerFirstName, amountInNaira) {
     const messages = document.getElementById("messages");
     const user = `<span style="font-weight: bold">Admin: </span>`;
-    messages.innerHTML += `<p>${user}<span>Auction ended. Winner is ${winnerFirstName} with a bit worth ${amountInNaira} NGN</span></p>`;
+    messages.innerHTML += `<p>${user}<span>Auction ended. Winner is ${winnerFirstName} with a bid worth ${amountInNaira} NGN</span></p>`;
     const auctionStatus = document.getElementById("auctionStatusValue");
     auctionStatus.innerText = "Ended";
     window.location.href = "../../pages/rooms.html";

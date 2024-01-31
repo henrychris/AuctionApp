@@ -1,15 +1,13 @@
 // todo:
 - add endpoint to get highest bid - RESOLVED
 - write getAuctionData endpoint - RESOLVED
-- add code to end auction, kick users and close room
-	-- will need to track users on connect and disconnect
-	-- store id and connectionId in a map
-	-- remove and add on connect and disconnect
-	-- when auction ends, iterate over map and send remove each user from group
-- add invoice generation code
-- add code to send invoice to winner
-- add endpoint to "process" payment
+- add code to end auction, kick users and close room - RESOLVED
+- add invoice generation code - TEST
+- add code to send invoice to winner - TEST
+- add endpoint to "process" payment - TEST
+- test mail sending - RESOLVED
 - add user name to "Welcome, !" on rooms page - RESOLVED
 - print ADMIN when a new bid is made.
 - investigate preserving room messages.
 - change auctionStatus to notStarted, inProgress and Completed
+- SETUP DOCKERFILE

@@ -19,7 +19,7 @@ public static class RabbitMqConfiguration
         {
             x.SetKebabCaseEndpointNameFormatter();
 
-            var assembly = Assembly.GetAssembly(typeof(CreateInvoiceRequest));
+            var assembly = Assembly.GetAssembly(typeof(CreateInvoiceConsumer));
             x.AddConsumers(assembly);
             x.AddSagaStateMachines(assembly);
             x.AddSagas(assembly);
