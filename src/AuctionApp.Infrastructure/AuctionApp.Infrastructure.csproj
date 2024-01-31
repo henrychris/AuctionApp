@@ -15,16 +15,17 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0"/>
+        <PackageReference Include="MailKit" Version="4.3.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\Migrations\" />
+        <Folder Include="Data\Migrations\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AuctionApp.Application\AuctionApp.Application.csproj" />
-      <ProjectReference Include="..\AuctionApp.Domain\AuctionApp.Domain.csproj" />
+        <ProjectReference Include="..\AuctionApp.Application\AuctionApp.Application.csproj"/>
+        <ProjectReference Include="..\AuctionApp.Domain\AuctionApp.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

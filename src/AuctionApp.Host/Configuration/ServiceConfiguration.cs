@@ -11,6 +11,7 @@ public static class ServiceConfiguration
         services.AddScoped<IAuctionService, AuctionService>();
         services.AddScoped<IBidService, BidService>();
         services.AddScoped<IRoomService, RoomService>();
+        services.AddScoped<IMailService, MailService>();
         services.AddSingleton(TimeProvider.System);
     }
 }
