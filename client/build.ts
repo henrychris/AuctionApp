@@ -9,6 +9,6 @@ await Bun.build({
     "./public/scripts/ts/rooms.ts",
     "./public/scripts/ts/signalRConn.ts",
     "./public/scripts/ts/api.ts",
-  ],
+    "./public/scripts/ts/payment.ts",],
   outdir: "./public/scripts/js/",
 });
