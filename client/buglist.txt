@@ -12,3 +12,4 @@
 - add user name to "Welcome, !" on rooms page - RESOLVED
 - print ADMIN when a new bid is made.
 - investigate preserving room messages.
+- change auctionStatus to notStarted, inProgress and Completed

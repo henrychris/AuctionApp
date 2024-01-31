@@ -633,7 +633,7 @@ class XhrHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.j
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
 class DefaultHttpClient extends HttpClient {
   constructor(logger) {
     super();
@@ -662,7 +662,7 @@ class DefaultHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.j
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
 class TextMessageFormat {
   static write(output) {
     return `${output}${TextMessageFormat.RecordSeparator}`;
@@ -679,7 +679,7 @@ class TextMessageFormat {
 TextMessageFormat.RecordSeparatorCode = 30;
 TextMessageFormat.RecordSeparator = String.fromCharCode(TextMessageFormat.RecordSeparatorCode);
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.j
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
 class HandshakeProtocol {
   writeHandshakeRequest(handshakeRequest) {
     return TextMessageFormat.write(JSON.stringify(handshakeRequest));
@@ -1660,7 +1660,7 @@ class HubConnection {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jsport
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjssport
 var DEFAULT_RETRY_DELAYS_IN_MILLISECONDS = [0, 2000, 1e4, 30000, null];
 
 class DefaultReconnectPolicy {
@@ -1678,7 +1678,7 @@ class HeaderNames {
 HeaderNames.Authorization = "Authorization";
 HeaderNames.Cookie = "Cookie";
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jspor
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspor
 class AccessTokenHttpClient extends HttpClient {
   constructor(innerClient, accessTokenFactory) {
     super();
@@ -1753,7 +1753,7 @@ class AbortController2 {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jspo
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspo
 class LongPollingTransport {
   get pollAborted() {
     return this._pollAbort.aborted;
@@ -1898,7 +1898,7 @@ class LongPollingTransport {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jsport.js
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjssport.js
 class ServerSentEventsTransport {
   constructor(httpClient, accessToken, logger, options) {
     this._httpClient = httpClient;
@@ -1986,7 +1986,7 @@ class ServerSentEventsTransport {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.js
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjss
 class WebSocketTransport {
   constructor(httpClient, accessTokenFactory, logger, logMessageContent, webSocketConstructor, headers) {
     this._logger = logger;
@@ -2701,7 +2701,7 @@ class JsonHubProtocol {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js.jspo
+// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspo
 var parseLogLevel = function(name) {
   const mapping = LogLevelNameMapping[name.toLowerCase()];
   if (typeof mapping !== "undefined") {
@@ -2845,6 +2845,20 @@ var SetSignalRMessageReceivers = function(connection) {
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
     const highestBid = document.getElementById("highestPriceValue");
     highestBid.innerText = amount + " NGN";
+  });
+  connection.on("AuctionEnded", function(winnerFirstName, amountInNaira) {
+    const messages = document.getElementById("messages");
+    const user = `<span style="font-weight: bold">Admin: </span>`;
+    messages.innerHTML += `<p>${user}<span>Auction ended. Winner is ${winnerFirstName} with a bit worth ${amountInNaira} NGN</span></p>`;
+    const auctionStatus = document.getElementById("auctionStatusValue");
+    auctionStatus.innerText = "Ended";
+    window.location.href = "../../pages/rooms.html";
+  });
+  connection.on("KickUser", function(user) {
+    const messages = document.getElementById("messages");
+    const userElement = `<span style="font-weight: bold">${user.username} </span>`;
+    messages.innerHTML += `<p style="color:grey">${userElement}was removed.</p>`;
+    window.location.href = "../../pages/rooms.html";
   });
 };
 function SendMessageToRoom(message, roomId) {

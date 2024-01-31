@@ -25,6 +25,11 @@ export async function StartSignalRConnection(
   return connection;
 }
 
+interface GroupUser {
+  username: string;
+  connectionId: string;
+}
+
 function SetSignalRMessageReceivers(connection: signalR.HubConnection) {
   connection.on("ReceiveMessage", function (msg) {
     console.log("hit");
@@ -62,6 +67,27 @@ function SetSignalRMessageReceivers(connection: signalR.HubConnection) {
 
     const highestBid = document.getElementById("highestPriceValue")!;
     highestBid.innerText = amount + " NGN";
+  });
+
+  connection.on(
+    "AuctionEnded",
+    function (winnerFirstName: string, amountInNaira: number) {
+      const messages = document.getElementById("messages")!;
+      const user = `<span style="font-weight: bold">Admin: </span>`;
+      messages.innerHTML += `<p>${user}<span>Auction ended. Winner is ${winnerFirstName} with a bit worth ${amountInNaira} NGN</span></p>`;
+      const auctionStatus = document.getElementById("auctionStatusValue")!;
+      auctionStatus.innerText = "Ended";
+
+      window.location.href = "../../pages/rooms.html";
+    }
+  );
+
+  connection.on("KickUser", function (user: GroupUser) {
+    const messages = document.getElementById("messages")!;
+    const userElement = `<span style="font-weight: bold">${user.username} </span>`;
+    messages.innerHTML += `<p style="color:grey">${userElement}was removed.</p>`;
+
+    window.location.href = "../../pages/rooms.html";
   });
 }
 
