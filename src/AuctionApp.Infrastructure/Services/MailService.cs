@@ -1,3 +1,5 @@
+using System.Text;
+
 using AuctionApp.Application.Contracts;
 using AuctionApp.Domain.Entities.Notifications;
 using AuctionApp.Domain.Settings;
@@ -109,6 +111,13 @@ public class MailService(ILogger<MailService> logger, IOptionsSnapshot<MailSetti
 
     public string LoadTemplate(string pathToTemplate)
     {
-        throw new NotImplementedException();
+        var baseDir = Directory.GetCurrentDirectory();
+        var templateDir = Path.Combine(baseDir, "Templates");
+        var templatePath = Path.Combine(templateDir, $"{pathToTemplate}.html");
+        using var fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var streamReader = new StreamReader(fileStream, Encoding.Default);
+        var mailTemplate = streamReader.ReadToEnd();
+        streamReader.Close();
+        return mailTemplate;
     }
 }
