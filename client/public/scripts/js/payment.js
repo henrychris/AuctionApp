@@ -34,11 +34,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error during payment:", error);
     }
   });
-  const changeButton = document.getElementById("changeButton");
-  if (changeButton) {
-    changeButton.addEventListener("click", () => {
-      paymentContainer.style.display = "none";
-      successMessage.style.display = "block";
-    });
-  }
 });
