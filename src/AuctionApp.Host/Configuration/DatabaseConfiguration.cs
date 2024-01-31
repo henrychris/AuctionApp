@@ -42,7 +42,7 @@ public static class DatabaseConfiguration
 
         services.AddDbContext<T>(options =>
         {
-            options.UseSqlite(connectionString, o => o.MigrationsHistoryTable(
+            options.UseNpgsql(connectionString, o => o.MigrationsHistoryTable(
                 tableName: HistoryRepository.DefaultTableName, typeof(T).Name));
         });
     }
@@ -75,7 +75,7 @@ public static class DatabaseConfiguration
         }
         else
         {
-            await context.Database.EnsureDeletedAsync();
+            await context.Database.MigrateAsync();
             await context.Database.EnsureCreatedAsync();
         }
 
@@ -88,6 +88,11 @@ public static class DatabaseConfiguration
 
     private static async Task SeedBiddingRooms(DataContext context, Auction auction)
     {
+        if (await context.BiddingRooms.AnyAsync())
+        {
+            return;
+        }
+
         var biddingRoom = new BiddingRoom
         {
             Id = "biddingRoom1", AuctionId = "auction1", Status = RoomStatus.Open, Auction = auction
@@ -108,6 +113,11 @@ public static class DatabaseConfiguration
             Status = AuctionStatus.InProgress
         };
 
+        if (await context.Auctions.AnyAsync())
+        {
+            return auction;
+        }
+
         await context.Auctions.AddAsync(auction);
         Console.WriteLine("Auction seeding complete.");
         return auction;
@@ -115,6 +125,11 @@ public static class DatabaseConfiguration
 
     private static async Task SeedUsers(UserManager<User> userManager)
     {
+        if (await userManager.Users.AnyAsync())
+        {
+            return;
+        }
+
         var admin = CreateUser("Henry", "test@email.com", "User", "c0bdebd1-f275-4722-aa54-ca4524e4b998");
         var user = CreateUser("User", "test2@email.com", "User", "testUserId");
         await AddUser(userManager, admin, "testPassword123@");

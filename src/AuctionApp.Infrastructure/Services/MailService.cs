@@ -95,7 +95,9 @@ public class MailService(ILogger<MailService> logger, IOptionsSnapshot<MailSetti
         {
             await smtp.ConnectAsync(_mailSettings.Host, _mailSettings.Port, GetSecureSocketOptions(), ct);
             await smtp.AuthenticateAsync(_mailSettings.UserName, _mailSettings.Password, ct);
+            logger.LogInformation("Sending email...");
             await smtp.SendAsync(mail, ct);
+            logger.LogInformation("Email sent.");
         }
         finally
         {
@@ -111,13 +113,21 @@ public class MailService(ILogger<MailService> logger, IOptionsSnapshot<MailSetti
 
     public string LoadTemplate(string pathToTemplate)
     {
-        var baseDir = Directory.GetCurrentDirectory();
-        var templateDir = Path.Combine(baseDir, "Templates");
-        var templatePath = Path.Combine(templateDir, $"{pathToTemplate}.html");
-        using var fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        using var streamReader = new StreamReader(fileStream, Encoding.Default);
-        var mailTemplate = streamReader.ReadToEnd();
-        streamReader.Close();
-        return mailTemplate;
+        try
+        {
+            var baseDir = Directory.GetCurrentDirectory();
+            var templateDir = Path.Combine(baseDir, "Templates");
+            var templatePath = Path.Combine(templateDir, $"{pathToTemplate}.html");
+            using var fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var streamReader = new StreamReader(fileStream, Encoding.Default);
+            var mailTemplate = streamReader.ReadToEnd();
+            streamReader.Close();
+            return mailTemplate;
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Couldn't retrieve email template.");
+            throw;
+        }
     }
 }

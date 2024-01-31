@@ -2,12 +2,14 @@
 - add endpoint to get highest bid - RESOLVED
 - write getAuctionData endpoint - RESOLVED
 - add code to end auction, kick users and close room - RESOLVED
-- add invoice generation code - TEST
-- add code to send invoice to winner - TEST
-- add endpoint to "process" payment - TEST
+- add invoice generation code - RESOLVED
+- add code to send invoice to winner - RESOLVED
+- add endpoint to "process" payment - RESOLVED
 - test mail sending - RESOLVED
 - add user name to "Welcome, !" on rooms page - RESOLVED
-- print ADMIN when a new bid is made.
+- print ADMIN when a new bid is made - RESOLVED
 - investigate preserving room messages.
-- change auctionStatus to notStarted, inProgress and Completed
+- change auctionStatus to notStarted, inProgress and Completed - RESOLVED
 - SETUP DOCKERFILE
+
+- get SOL airdrop on henryihenacho_

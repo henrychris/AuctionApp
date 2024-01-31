@@ -30,7 +30,7 @@ public static class RabbitMqConfiguration
             {
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(rabbitMqSettings?.Host, "/",
+                    cfg.Host(new Uri(rabbitMqSettings?.Host!), "/",
                         h =>
                         {
                             h.Username(rabbitMqSettings!.Username);

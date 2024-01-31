@@ -13,8 +13,9 @@ public static class SettingsConfiguration
     public static void SetupConfigFiles(this IServiceCollection services)
     {
         IConfiguration configuration = new ConfigurationBuilder()
-            .AddUserSecrets<Program>()
+            // .AddUserSecrets<Program>()
             .AddEnvironmentVariables()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
         Console.WriteLine($"{configuration.AsEnumerable().Count()} secrets retrieved.");

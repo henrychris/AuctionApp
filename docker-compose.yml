@@ -5,13 +5,30 @@
     build:
       context: .
       dockerfile: src/AuctionApp.Host/Dockerfile
-  
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_URLS=http://+:8080
+    depends_on:
+      - messaging
+      - database
   
   messaging:
     image: "rabbitmq:3-management"
     container_name: auctionapp.messaging
-    hostname: auctionapp.messaging
     ports:
       - "5672:5672"
       - "15672:15672"
       - "15692:15692"
+  
+  database:
+    image: "postgres:12.9"
+    container_name: auctionapp.database
+    ports:
+      - "5432:5432"
+    environment:
+      - ACCEPT_EULA=y
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=testPassword123
+      - POSTGRES_DB=AuctionDb

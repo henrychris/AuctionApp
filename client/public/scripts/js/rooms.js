@@ -62,7 +62,8 @@ async function GetDataWithToken(url = "", token) {
 }
 
 // node_modules/@microsoft/sig
-var BASE_URL = "http://localhost:5030/api";
+var BASE_URL = "http://localhost:5000/api";
+var BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 var ADMIN_EMAIL = "test@email.com";
 var ADMIN_PASSWORD = "testPassword123@";
 var USER_EMAIL = "test2@hotmail.com";
@@ -2802,7 +2803,7 @@ class HubConnectionBuilder {
 }
 // node_modules/@microsoft/signalr/
 async function StartSignalRConnection(token) {
-  connection = new HubConnectionBuilder().withUrl("http://localhost:5030/auctionHub", {
+  connection = new HubConnectionBuilder().withUrl(BASE_URL_SIGNALR, {
     accessTokenFactory: () => token
   }).withAutomaticReconnect().build();
   SetSignalRMessageReceivers(connection);
@@ -2841,7 +2842,7 @@ var SetSignalRMessageReceivers = function(connection) {
   });
   connection.on("BidPlaced", function(msg, amount) {
     const messages = document.getElementById("messages");
-    const user = `<span style="font-weight: bold">${msg.userName}: </span>`;
+    const user = `<span style="font-weight: bold">Admin: </span>`;
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
     const highestBid = document.getElementById("highestPriceValue");
     highestBid.innerText = amount + " NGN";

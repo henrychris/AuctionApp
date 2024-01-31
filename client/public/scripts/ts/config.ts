@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:5030/api";
+export const BASE_URL = "http://localhost:5000/api";
+export const BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 
 export const ADMIN_EMAIL = "test@email.com";
 export const ADMIN_PASSWORD = "testPassword123@";

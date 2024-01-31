@@ -1,5 +1,5 @@
 import { PostDataWithToken, PostDataWithTokenNoRes } from "./helper.js";
-import { BASE_URL, type ApiResponse } from "./config.js";
+import { BASE_URL, type ApiResponse, BASE_URL_SIGNALR } from "./config.js";
 import * as signalR from "@microsoft/signalr";
 
 let connection: signalR.HubConnection;
@@ -7,7 +7,7 @@ export async function StartSignalRConnection(
   token: string
 ): Promise<signalR.HubConnection> {
   connection = new signalR.HubConnectionBuilder()
-    .withUrl("http://localhost:5030/auctionHub", {
+    .withUrl(BASE_URL_SIGNALR, {
       accessTokenFactory: () => token,
     })
     .withAutomaticReconnect()

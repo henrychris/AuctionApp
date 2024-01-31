@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  auctionapp.host:
+    build:
+      context: "/home/henry/Documents/GitHub/AuctionApp"
+      dockerfile: "src/AuctionApp.Host/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/AuctionApp.Host.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "auctionapp.host:dev"
+    ports: []
+    volumes:
+    - "/home/henry/.microsoft/usersecrets:/home/app/.microsoft/usersecrets"
+    - "/home/henry/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/henry/Documents/GitHub/AuctionApp/src/AuctionApp.Host:/app:rw"
+    - "/home/henry/Documents/GitHub/AuctionApp:/src:rw"
+    working_dir: "/app"
