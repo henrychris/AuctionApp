@@ -54,7 +54,7 @@ public class RoomsController(IMediator mediator) : BaseController
     
     [Authorize(Roles = Roles.ADMIN)]
     [HttpPost("{id}/start")]
-    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> StartRoomAuction(string id)
     {
         var result = await mediator.Send(new StartRoomAuctionRequest { RoomId = id });
@@ -64,7 +64,7 @@ public class RoomsController(IMediator mediator) : BaseController
 
     [Authorize(Roles = Roles.ADMIN)]
     [HttpPost("{id}/open")]
-    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> OpenRoomAuction(string id)
     {
         var result = await mediator.Send(new OpenRoomRequest { RoomId = id });
@@ -74,7 +74,7 @@ public class RoomsController(IMediator mediator) : BaseController
 
     [Authorize(Roles = Roles.USER)]
     [HttpPost("{id}/bid")]
-    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<MakeBidResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Bid(string id, [FromBody] BidRequestDto requestDto)
     {
         var result = await mediator.Send(new MakeBidRequest
@@ -87,7 +87,7 @@ public class RoomsController(IMediator mediator) : BaseController
 
     [Authorize(Roles = Roles.ADMIN)]
     [HttpPost("{id}/end")]
-    [ProducesResponseType(typeof(ApiResponse<GetRoomResponse>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> EndRoomAuction(string id)
     {
         var result = await mediator.Send(new EndRoomAuctionRequest { RoomId = id });
