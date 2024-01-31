@@ -15,6 +15,10 @@ namespace AuctionApp.Domain.ServiceErrors
             public static Error AlreadyStarted => Error.Conflict(
                 code: "Auction.AlreadyStarted",
                 description: "Auction is already started.");
+
+            public static Error NoBidsYet => Error.Failure(
+                code: "Auction.NoBidsYet",
+                description: "No bids have been placed on this auction");
         }
     }
 }

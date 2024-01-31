@@ -6,6 +6,7 @@ using AuctionApp.Application.Features.Bids.MakeBid;
 using AuctionApp.Application.Features.Rooms.CreateRoom;
 using AuctionApp.Application.Features.Rooms.EndRoomAuction;
 using AuctionApp.Application.Features.Rooms.GetAllRooms;
+using AuctionApp.Application.Features.Rooms.GetAuctionData;
 using AuctionApp.Application.Features.Rooms.GetSingleRoom;
 using AuctionApp.Application.Features.Rooms.JoinRoom;
 using AuctionApp.Application.Features.Rooms.LeaveRoom;
@@ -124,6 +125,18 @@ public class RoomsController(IMediator mediator) : BaseController
 
         // If successful, return the event data in an ApiResponse.
         // If an error occurs, return an error response using the ReturnErrorResponse method.
+        return result.Match(
+            _ => Ok(result.ToSuccessfulApiResponse()),
+            ReturnErrorResponse);
+    }
+
+    [Authorize]
+    [HttpGet("{roomId}/data")]
+    [ProducesResponseType(typeof(ApiResponse<GetAuctionDataResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAuctionData(string roomId)
+    {
+        var result = await mediator.Send(new GetAuctionDataRequest { RoomId = roomId });
+
         return result.Match(
             _ => Ok(result.ToSuccessfulApiResponse()),
             ReturnErrorResponse);
