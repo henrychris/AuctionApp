@@ -62,7 +62,7 @@ function SetSignalRMessageReceivers(connection: signalR.HubConnection) {
 
   connection.on("BidPlaced", function (msg, amount) {
     const messages = document.getElementById("messages")!;
-    const user = `<span style="font-weight: bold">${msg.userName}: </span>`;
+    const user = `<span style="font-weight: bold">Admin: </span>`;
     messages.innerHTML += `<p>${user}<span>${msg.content}</span></p>`;
 
     const highestBid = document.getElementById("highestPriceValue")!;
