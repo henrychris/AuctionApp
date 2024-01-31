@@ -21,6 +21,8 @@ public static class SettingsConfiguration
 
         ConfigureSettings<DatabaseSettings>(services, configuration);
         ConfigureSettings<JwtSettings>(services, configuration);
+        ConfigureSettings<MailSettings>(services, configuration);
+        ConfigureSettings<RabbitMqSettings>(services, configuration);
         Console.WriteLine("Secrets have been bound to classes.");
     }
 }

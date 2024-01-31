@@ -24,6 +24,7 @@ builder.Services.SetupAuthentication();
 builder.Services.RegisterServices();
 builder.Services.SetupJsonOptions();
 builder.Services.AddFeatures();
+builder.Services.AddMessaging();
 
 var app = builder.Build();
 app.UseCors("AllowMyOrigin");

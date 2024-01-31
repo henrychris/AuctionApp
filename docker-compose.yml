@@ -1,0 +1,17 @@
+﻿services:
+  auctionapp.host:
+    image: auctionapp.host
+    container_name: auctionapp.api
+    build:
+      context: .
+      dockerfile: src/AuctionApp.Host/Dockerfile
+  
+  
+  messaging:
+    image: "rabbitmq:3-management"
+    container_name: auctionapp.messaging
+    hostname: auctionapp.messaging
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
