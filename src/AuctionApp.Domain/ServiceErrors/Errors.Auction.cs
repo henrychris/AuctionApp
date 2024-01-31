@@ -19,6 +19,10 @@ namespace AuctionApp.Domain.ServiceErrors
             public static Error NoBidsYet => Error.Failure(
                 code: "Auction.NoBidsYet",
                 description: "No bids have been placed on this auction");
+
+            public static Error NotStartedYet => Error.Failure(
+                code: "Auction.NotStartedYet",
+                description: "This auction hasn't started yet.");
         }
     }
 }
