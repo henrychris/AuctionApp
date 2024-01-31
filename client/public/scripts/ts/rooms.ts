@@ -8,6 +8,7 @@ import {
   StartSignalRConnection,
 } from "./signalRConn.js";
 import type { ApiResponse, UserAuthResponse } from "./config.js";
+import { getAuctionData } from "./api.js";
 // placeholder token generation
 // store token in local storage later. or use express jeje
 
@@ -124,6 +125,7 @@ async function joinRoomInternal(roomId: string) {
   chatScreen.style.display = "block";
   roomScreen.style.display = "none";
 
+  localStorage.setItem("currentRoomId", roomId);
   console.log(`${userId} joined ${roomId}`);
 }
 
@@ -181,7 +183,45 @@ async function LeaveRoomInternal() {
   window.location.href = "./rooms.html";
 }
 
+function addMutationObserver() {
+  const section = document.getElementById("chatScreen")!;
+
+  // Create an observer instance
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      // Check if the section is visible
+      if (section.style.display !== "none") {
+        // Update data
+        loadAuctionData();
+      }
+    });
+  });
+
+  const config = { attributes: true, attributeFilter: ["style"] };
+  observer.observe(section, config);
+}
+
+async function loadAuctionData() {
+  console.log("Loading auction data.");
+  
+  const roomId = localStorage.getItem("currentRoomId");
+  if (!roomId) {
+    throw new Error("current roomId not set!");
+  }
+
+  const auctionData = await getAuctionData(roomId, TOKEN);
+
+  const roomIdElement = document.getElementById("roomId")!;
+  const highestBidElement = document.getElementById("highestPriceValue")!;
+  const statusElement = document.getElementById("auctionStatusValue")!;
+
+  roomIdElement.innerText = roomId;
+  highestBidElement.innerText = auctionData.highestBidAmountInNaira + " NGN";
+  statusElement.innerText = auctionData.auctionStatus;
+}
+
 // get connectionId and store it here.
 SetEventListeners();
+addMutationObserver();
 StartSignalRConnection(TOKEN);
 main();

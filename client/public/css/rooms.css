@@ -151,7 +151,7 @@ nav a:hover {
 
 /* Style for chatScreen section */
 #chatScreen {
-  display: none;
+  /* display: none; */
   margin-top: 20px;
   text-align: center;
 }

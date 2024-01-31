@@ -1,5 +1,15 @@
-- highest price does not update during auction
+- highest price does not update during auction - RESOLVED
 - it should also update on room load
+
 -- can we preserve text messages when a user leaves and rejoins?
 
 - when a new bid is made, the message prints the users name, not Admin.
+
+// todo:
+- add endpoint to get highest bid - RESOLVED
+- write getAuctionData endpoint - RESOLVED
+- add code to end auction, kick users and close room
+- add invoice generation code
+- add code to send invoice to winner
+- add endpoint to "process" payment
+- add user name to "Welcome, !" on rooms page

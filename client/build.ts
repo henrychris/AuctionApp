@@ -8,6 +8,7 @@ await Bun.build({
     "./public/scripts/ts/helper.ts",
     "./public/scripts/ts/rooms.ts",
     "./public/scripts/ts/signalRConn.ts",
+    "./public/scripts/ts/api.ts",
   ],
   outdir: "./public/scripts/js/",
 });
