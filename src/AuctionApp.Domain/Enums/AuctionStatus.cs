@@ -4,6 +4,5 @@ public enum AuctionStatus
 {
     NotStarted,
     InProgress,
-    AwaitingPayment,
     Ended
 }

@@ -46,7 +46,7 @@ public class EndRoomAuctionRequestHandler(
             return Errors.Auction.NotStartedYet;
         }
 
-        roomWithAuction.Auction.Status = AuctionStatus.AwaitingPayment;
+        roomWithAuction.Auction.Status = AuctionStatus.Ended;
         roomWithAuction.Status = RoomStatus.Closed;
 
         // get bid details
