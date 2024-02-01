@@ -13,7 +13,8 @@ namespace AuctionApp.Application.Features.Auctions
                 Name = request.Name,
                 StartingPriceInKobo = CurrencyConverter.ConvertNairaToKobo(request.StartingPriceInNaira),
                 StartingTime = request.StartingTime,
-                ClosingTime = request.ClosingTime
+                ClosingTime = request.ClosingTime,
+                HighestBidAmountInKobo = CurrencyConverter.ConvertNairaToKobo(request.StartingPriceInNaira)
             };
         }
 

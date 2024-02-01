@@ -2,6 +2,8 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 using AuctionApp.Application.ApiResponses;
+using AuctionApp.Application.Features.Auctions.CreateAuction;
+using AuctionApp.Application.Features.Auctions.GetSingleAuction;
 using AuctionApp.Application.Features.Auth;
 using AuctionApp.Application.Features.Auth.Register;
 using AuctionApp.Application.Features.Invoices.CreateInvoice;
@@ -77,5 +79,21 @@ public class IntegrationTest
 
         var result = await registerResponse.Content.ReadFromJsonAsync<ApiResponse<UserAuthResponse>>();
         return result;
+    }
+
+    protected async Task<CreateAuctionResponse> CreateAuctionAsync(CreateAuctionRequest createAuctionRequest)
+    {
+        var response = await TestClient.PostAsJsonAsync("Auctions", createAuctionRequest);
+        var auctionRes = await response.Content.ReadFromJsonAsync<ApiResponse<CreateAuctionResponse>>();
+        var auction = auctionRes!.Data;
+        return auction!;
+    }
+
+    protected async Task<GetAuctionResponse> GetAuctionAsync(string auctionId)
+    {
+        var response = await TestClient.GetAsync($"Auctions/{auctionId}");
+        var auctionRes = await response.Content.ReadFromJsonAsync<ApiResponse<GetAuctionResponse>>();
+        var auction = auctionRes!.Data;
+        return auction!;
     }
 }
