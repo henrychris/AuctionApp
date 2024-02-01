@@ -2,7 +2,7 @@ var __require = (id) => {
   return import.meta.require(id);
 };
 
-// node_modules/@microsoft/sig
+// public/scripts/ts/helper.ts
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
@@ -61,7 +61,7 @@ async function GetDataWithToken(url = "", token) {
   return response.json();
 }
 
-// node_modules/@microsoft/sig
+// public/scripts/ts/config.ts
 var BASE_URL = "http://localhost:5000/api";
 var BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 var ADMIN_EMAIL = "test@email.com";
@@ -69,7 +69,7 @@ var ADMIN_PASSWORD = "testPassword123@";
 var USER_EMAIL = "test2@hotmail.com";
 var USER_PASSWORD = "testPassword123@";
 
-// node_modules/@microsoft/s
+// public/scripts/ts/auth.ts
 async function login(email, password) {
   const res = await postData(`${BASE_URL}/auth/login`, {
     emailAddress: email,
@@ -95,7 +95,7 @@ async function register(firstName, lastName, email, password) {
   }
 }
 
-// node_modules/@microsoft/si
+// public/scripts/ts/index.ts
 var SetEventListeners = function() {
   document.getElementById("toggleToRegisterButton").addEventListener("click", toggleForm);
   document.getElementById("toggleToLoginButton").addEventListener("click", toggleForm);

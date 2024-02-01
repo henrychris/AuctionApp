@@ -2,7 +2,7 @@ var __require = (id) => {
   return import.meta.require(id);
 };
 
-// node_modules/@microsoft/sig
+// public/scripts/ts/helper.ts
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
@@ -61,7 +61,7 @@ async function GetDataWithToken(url = "", token) {
   return response.json();
 }
 
-// node_modules/@microsoft/sig
+// public/scripts/ts/config.ts
 var BASE_URL = "http://localhost:5000/api";
 var BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 var ADMIN_EMAIL = "test@email.com";
@@ -69,7 +69,7 @@ var ADMIN_PASSWORD = "testPassword123@";
 var USER_EMAIL = "test2@hotmail.com";
 var USER_PASSWORD = "testPassword123@";
 
-// node_modules/@microsoft/
+// public/scripts/ts/api.ts
 async function getAuctionData(roomId, TOKEN) {
   var res = await GetDataWithToken(BASE_URL + `/rooms/${roomId}/data`, TOKEN);
   return res.data;

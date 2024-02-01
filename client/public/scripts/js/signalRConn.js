@@ -2,7 +2,7 @@ var __require = (id) => {
   return import.meta.require(id);
 };
 
-// node_modules/@microsoft/sig
+// public/scripts/ts/helper.ts
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
@@ -61,7 +61,7 @@ async function GetDataWithToken(url = "", token) {
   return response.json();
 }
 
-// node_modules/@microsoft/sig
+// public/scripts/ts/config.ts
 var BASE_URL = "http://localhost:5000/api";
 var BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 var ADMIN_EMAIL = "test@email.com";
@@ -69,7 +69,7 @@ var ADMIN_PASSWORD = "testPassword123@";
 var USER_EMAIL = "test2@hotmail.com";
 var USER_PASSWORD = "testPassword123@";
 
-// node_modules/@microsoft/signalr/dist/esm/AbortCont
+// node_modules/@microsoft/signalr/dist/esm/Errors.js
 class HttpError extends Error {
   constructor(errorMessage, statusCode) {
     const trueProto = new.target.prototype;
@@ -143,7 +143,7 @@ class AggregateErrors extends Error {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortControll
+// node_modules/@microsoft/signalr/dist/esm/HttpClient.js
 class HttpResponse {
   constructor(statusCode, statusText, content) {
     this.statusCode = statusCode;
@@ -179,7 +179,7 @@ class HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortContr
+// node_modules/@microsoft/signalr/dist/esm/ILogger.js
 var LogLevel;
 (function(LogLevel2) {
   LogLevel2[LogLevel2["Trace"] = 0] = "Trace";
@@ -191,7 +191,7 @@ var LogLevel;
   LogLevel2[LogLevel2["None"] = 6] = "None";
 })(LogLevel || (LogLevel = {}));
 
-// node_modules/@microsoft/signalr/dist/esm/AbortContr
+// node_modules/@microsoft/signalr/dist/esm/Loggers.js
 class NullLogger {
   constructor() {
   }
@@ -200,7 +200,7 @@ class NullLogger {
 }
 NullLogger.instance = new NullLogger;
 
-// node_modules/@microsoft/signalr/dist/esm/AbortCon
+// node_modules/@microsoft/signalr/dist/esm/Utils.js
 function getDataDetail(data, includeContent) {
   let detail = "";
   if (isArrayBuffer(data)) {
@@ -412,7 +412,7 @@ class ConsoleLogger {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.j
+// node_modules/@microsoft/signalr/dist/esm/DynamicImports.js
 function configureFetch(obj) {
   if (typeof fetch === "undefined" || Platform.isNode) {
     obj._jar = new ((()=>({}))).CookieJar;
@@ -440,7 +440,7 @@ function getEventSource() {
   return (()=>({}));
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js
+// node_modules/@microsoft/signalr/dist/esm/FetchHttpClient.js
 var deserializeContent = function(response, responseType) {
   let content;
   switch (responseType) {
@@ -562,7 +562,7 @@ class FetchHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.
+// node_modules/@microsoft/signalr/dist/esm/XhrHttpClient.js
 class XhrHttpClient extends HttpClient {
   constructor(logger) {
     super();
@@ -634,7 +634,7 @@ class XhrHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
+// node_modules/@microsoft/signalr/dist/esm/DefaultHttpClient.js
 class DefaultHttpClient extends HttpClient {
   constructor(logger) {
     super();
@@ -663,7 +663,7 @@ class DefaultHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
+// node_modules/@microsoft/signalr/dist/esm/TextMessageFormat.js
 class TextMessageFormat {
   static write(output) {
     return `${output}${TextMessageFormat.RecordSeparator}`;
@@ -680,7 +680,7 @@ class TextMessageFormat {
 TextMessageFormat.RecordSeparatorCode = 30;
 TextMessageFormat.RecordSeparator = String.fromCharCode(TextMessageFormat.RecordSeparatorCode);
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjs
+// node_modules/@microsoft/signalr/dist/esm/HandshakeProtocol.js
 class HandshakeProtocol {
   writeHandshakeRequest(handshakeRequest) {
     return TextMessageFormat.write(JSON.stringify(handshakeRequest));
@@ -717,7 +717,7 @@ class HandshakeProtocol {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController
+// node_modules/@microsoft/signalr/dist/esm/IHubProtocol.js
 var MessageType;
 (function(MessageType2) {
   MessageType2[MessageType2["Invocation"] = 1] = "Invocation";
@@ -731,7 +731,7 @@ var MessageType;
   MessageType2[MessageType2["Sequence"] = 9] = "Sequence";
 })(MessageType || (MessageType = {}));
 
-// node_modules/@microsoft/signalr/dist/esm/AbortContr
+// node_modules/@microsoft/signalr/dist/esm/Subject.js
 class Subject {
   constructor() {
     this.observers = [];
@@ -761,7 +761,7 @@ class Subject {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.
+// node_modules/@microsoft/signalr/dist/esm/MessageBuffer.js
 class MessageBuffer {
   constructor(protocol, connection, bufferSize) {
     this._bufferSize = 1e5;
@@ -919,7 +919,7 @@ class BufferedItem {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.
+// node_modules/@microsoft/signalr/dist/esm/HubConnection.js
 var DEFAULT_TIMEOUT_IN_MS = 30 * 1000;
 var DEFAULT_PING_INTERVAL_IN_MS = 15 * 1000;
 var DEFAULT_STATEFUL_RECONNECT_BUFFER_SIZE = 1e5;
@@ -1661,7 +1661,7 @@ class HubConnection {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjssport
+// node_modules/@microsoft/signalr/dist/esm/DefaultReconnectPolicy.js
 var DEFAULT_RETRY_DELAYS_IN_MILLISECONDS = [0, 2000, 1e4, 30000, null];
 
 class DefaultReconnectPolicy {
@@ -1673,13 +1673,13 @@ class DefaultReconnectPolicy {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortControlle
+// node_modules/@microsoft/signalr/dist/esm/HeaderNames.js
 class HeaderNames {
 }
 HeaderNames.Authorization = "Authorization";
 HeaderNames.Cookie = "Cookie";
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspor
+// node_modules/@microsoft/signalr/dist/esm/AccessTokenHttpClient.js
 class AccessTokenHttpClient extends HttpClient {
   constructor(innerClient, accessTokenFactory) {
     super();
@@ -1718,7 +1718,7 @@ class AccessTokenHttpClient extends HttpClient {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortControll
+// node_modules/@microsoft/signalr/dist/esm/ITransport.js
 var HttpTransportType;
 (function(HttpTransportType2) {
   HttpTransportType2[HttpTransportType2["None"] = 0] = "None";
@@ -1754,7 +1754,7 @@ class AbortController2 {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspo
+// node_modules/@microsoft/signalr/dist/esm/LongPollingTransport.js
 class LongPollingTransport {
   get pollAborted() {
     return this._pollAbort.aborted;
@@ -1899,7 +1899,7 @@ class LongPollingTransport {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjssport.js
+// node_modules/@microsoft/signalr/dist/esm/ServerSentEventsTransport.js
 class ServerSentEventsTransport {
   constructor(httpClient, accessToken, logger, options) {
     this._httpClient = httpClient;
@@ -1987,7 +1987,7 @@ class ServerSentEventsTransport {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjss
+// node_modules/@microsoft/signalr/dist/esm/WebSocketTransport.js
 class WebSocketTransport {
   constructor(httpClient, accessTokenFactory, logger, logMessageContent, webSocketConstructor, headers) {
     this._logger = logger;
@@ -2119,7 +2119,7 @@ class WebSocketTransport {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.j
+// node_modules/@microsoft/signalr/dist/esm/HttpConnection.js
 var transportMatches = function(requestedTransport, actualTransport) {
   return !requestedTransport || (actualTransport & requestedTransport) !== 0;
 };
@@ -2607,7 +2607,7 @@ class PromiseSource {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.js
+// node_modules/@microsoft/signalr/dist/esm/JsonHubProtocol.js
 var JSON_HUB_PROTOCOL_NAME = "json";
 
 class JsonHubProtocol {
@@ -2702,7 +2702,7 @@ class JsonHubProtocol {
   }
 }
 
-// node_modules/@microsoft/signalr/dist/esm/AbortController.jsjsspo
+// node_modules/@microsoft/signalr/dist/esm/HubConnectionBuilder.js
 var parseLogLevel = function(name) {
   const mapping = LogLevelNameMapping[name.toLowerCase()];
   if (typeof mapping !== "undefined") {
@@ -2801,7 +2801,7 @@ class HubConnectionBuilder {
     return HubConnection.create(connection, this.logger || NullLogger.instance, this.protocol || new JsonHubProtocol, this.reconnectPolicy, this._serverTimeoutInMilliseconds, this._keepAliveIntervalInMilliseconds, this._statefulReconnectBufferSize);
   }
 }
-// node_modules/@microsoft/signalr/
+// public/scripts/ts/signalRConn.ts
 async function StartSignalRConnection(token) {
   connection = new HubConnectionBuilder().withUrl(BASE_URL_SIGNALR, {
     accessTokenFactory: () => token
