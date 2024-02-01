@@ -13,7 +13,8 @@
     depends_on:
       - messaging
       - database
-  
+    restart: always
+
   messaging:
     image: "rabbitmq:3-management"
     container_name: auctionapp.messaging
@@ -21,7 +22,7 @@
       - "5672:5672"
       - "15672:15672"
       - "15692:15692"
-  
+
   database:
     image: "postgres:12.9"
     container_name: auctionapp.database
