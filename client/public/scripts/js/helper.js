@@ -58,4 +58,8 @@
     });
     return response.json();
   }
+  function GetErrors(error) {
+    const err = error;
+    return err.errors.map((e) => e.description).join("\n");
+  }
 })();

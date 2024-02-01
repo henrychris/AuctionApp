@@ -112,8 +112,14 @@ public class SendInvoiceMailConsumer(IMailService mailService, ILogger<SendInvoi
                         .Replace("{InvoiceId}", invoiceDetails.Id);
 
         logger.LogInformation("Sending invoice email to {emailAddress}", invoiceDetails.UserEmail);
-        await mailService.SendAsync(
+        var result = await mailService.SendAsync(
             new MailData { Body = emailTemplate, Subject = "Your invoice.", To = toEmailAddress, Attachments = null },
             new CancellationToken());
+
+        if (!result)
+        {
+            // masstransit requeues on exceptions.
+            throw new Exception("Mail failed to send. Requeueing...");
+        }
     }
 }
