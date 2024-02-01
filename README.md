@@ -151,8 +151,8 @@ Some things have been setup to let you test the essential functions.
 
 There are two users seeded into the DB
 
-1. Email: <test@email.com>. Role: Admin.
-2. Email: <test2@email.com>. Role: User.
+1. Email: <admin@email.com>. Role: Admin.
+2. Email: <user@email.com>. Role: User.
 
 The password is 'testPassword123@' for both users.
 
