@@ -3020,11 +3020,21 @@
     return false;
   }
   async function LeaveRoom(roomId, token) {
-    connection.invoke("LeaveRoom", connection.connectionId, roomId);
+    try {
+      await connection.invoke("LeaveRoom", connection.connectionId, roomId);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
     return true;
   }
   async function JoinRoom(roomId, token) {
-    connection.invoke("JoinRoom", connection.connectionId, roomId);
+    try {
+      await connection.invoke("JoinRoom", connection.connectionId, roomId);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
     return true;
   }
 })();

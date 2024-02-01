@@ -56,7 +56,7 @@ public class AuctionRoomHub(ILogger<AuctionRoomHub> logger) : Hub<IAuctionRoomCl
     /// <param name="connectionId">The connection ID of the user.</param>
     /// <param name="roomId">The ID of the room to join.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-
+    [Authorize(Roles = Roles.USER)]
     public async Task JoinRoom(string connectionId, string roomId)
     {
         await Groups.AddToGroupAsync(connectionId, roomId);
@@ -76,7 +76,7 @@ public class AuctionRoomHub(ILogger<AuctionRoomHub> logger) : Hub<IAuctionRoomCl
     /// <param name="connectionId">The connection ID of the user.</param>
     /// <param name="roomId">The ID of the room to leave.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-
+    [Authorize(Roles = Roles.USER)]
     public async Task LeaveRoom(string connectionId, string roomId)
     {
         if (groupUsers.TryGetValue(roomId, out List<GroupUser>? value))
@@ -92,7 +92,7 @@ public class AuctionRoomHub(ILogger<AuctionRoomHub> logger) : Hub<IAuctionRoomCl
     /// </summary>
     /// <param name="roomId">The ID of the group to close.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-
+    [Authorize(Roles = Roles.ADMIN)]
     public async Task CloseGroup(string roomId)
     {
         // Get the list of users in the group

@@ -119,6 +119,7 @@ async function joinRoomInternal(roomId: string) {
   let success = await JoinRoom(roomId, TOKEN);
   if (!success) {
     console.log(`${userId} failed to join the room`);
+    alert("Failed to join room. It's possible that you logged in as admin.");
     return;
   }
 

@@ -3033,11 +3033,21 @@
     return false;
   }
   async function LeaveRoom(roomId, token) {
-    connection.invoke("LeaveRoom", connection.connectionId, roomId);
+    try {
+      await connection.invoke("LeaveRoom", connection.connectionId, roomId);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
     return true;
   }
   async function JoinRoom(roomId, token) {
-    connection.invoke("JoinRoom", connection.connectionId, roomId);
+    try {
+      await connection.invoke("JoinRoom", connection.connectionId, roomId);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
     return true;
   }
 
@@ -3119,6 +3129,7 @@
     let success = await JoinRoom(roomId, TOKEN);
     if (!success) {
       console.log(`${userId} failed to join the room`);
+      alert("Failed to join room. It's possible that you logged in as admin.");
       return;
     }
     const chatScreen = document.getElementById("chatScreen");

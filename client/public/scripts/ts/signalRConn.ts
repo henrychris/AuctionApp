@@ -121,11 +121,21 @@ export async function MakeBid(roomId: string, bid: number, token: string) {
 }
 
 export async function LeaveRoom(roomId: string, token: string) {
-  connection.invoke("LeaveRoom", connection.connectionId, roomId);
+  try {
+    await connection.invoke("LeaveRoom", connection.connectionId, roomId);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
   return true;
 }
 
 export async function JoinRoom(roomId: string, token: string) {
-  connection.invoke("JoinRoom", connection.connectionId, roomId);
+  try {
+    await connection.invoke("JoinRoom", connection.connectionId, roomId);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
   return true;
 }

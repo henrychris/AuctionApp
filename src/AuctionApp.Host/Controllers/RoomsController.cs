@@ -85,7 +85,7 @@ public class RoomsController(IMediator mediator) : BaseController
             ReturnErrorResponse);
     }
 
-    // [Authorize(Roles = Roles.ADMIN)]
+    [Authorize(Roles = Roles.ADMIN)]
     [HttpPost("{id}/end")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> EndRoomAuction(string id)
