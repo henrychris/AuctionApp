@@ -178,3 +178,16 @@ When using this pattern, I can return structured, useful errors in a consistent 
 
 The message describes the first error in the list, and errors contains 1 to N errors.  
 Finally, you'll notice there are no warnings for possible null exceptions in the application, which is thoroughly pleasing.
+
+## Sending Emails
+
+There are two files to reference [SendInvoiceMailRequest.cs](./src/AuctionApp.Application/Features/Mail/SendInvoiceMail/SendInvoiceMailRequest.cs) and [MailService.cs](./src/AuctionApp.Infrastructure/Services/MailService.cs).
+
+In the first file, you'll notice the html stored in a string. This is a necessary evil. I could have chosen to store the file in Azure Blob storage and setup a service to fetch it when needed, but I decided it was overkill for a project of this nature.  
+After the template is altered to use the invoice data passed in, `MailService` is called to send the email.
+
+Rather than using a service like SendGrid, I chose to use a simple SMTP server connection as this allows me to send the email straight to a user's inbox, instead of a sandbox environment. If the email fails to send, for whatever reason, an exception is thrown.
+
+MassTransit sets up a queue named `send-invoice-mail-request`, and any messages published to it are consumed by `SendInvoiceMailConsumer`. Exceptions thrown in the consumer are recognised as a failure to process the message. When that happens, MassTransit will requeue the message and retry.
+
+Barring exceptional situations, you can be assured that the message will be processed **once**.
