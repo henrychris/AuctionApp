@@ -30,7 +30,9 @@ Also read [BehindTheScenes.md](./BehindTheScenes.md)
 
 ## Requirements
 
-Ideally, you would need to have bun installed to use the client application. You can install it [here](https://bun.sh/docs/installation).
+Ideally, you would need to have Bun installed to use the client application. You can install it [here](https://bun.sh/docs/installation).
+If you don't have Bun, you can use npm & node.
+
 To the run the API, you will need to have [Docker](https://docs.docker.com/engine/install/) installed.
 
 ## Project Setup
@@ -63,10 +65,22 @@ cd AuctionApp
    bun install
    ```
 
+   **OR**
+
+   ```bash
+   npm install
+   ```
+
 3. Run the client application
 
    ```bash
    bun start
+   ```
+
+   **OR**
+
+   ```bash
+   npm run node-run
    ```
 
 4. You can access the client application at <http://localhost:3000>
