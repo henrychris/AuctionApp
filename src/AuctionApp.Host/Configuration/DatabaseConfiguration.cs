@@ -75,7 +75,7 @@ public static class DatabaseConfiguration
         }
         else
         {
-            await context.Database.MigrateAsync();
+            await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
         }
 
