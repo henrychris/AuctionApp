@@ -2,7 +2,7 @@ var __require = (id) => {
   return import.meta.require(id);
 };
 
-// public/scripts/ts/helper.ts
+// node_modules/@microsoft/sig
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
@@ -61,7 +61,7 @@ async function GetDataWithToken(url = "", token) {
   return response.json();
 }
 
-// public/scripts/ts/config.ts
+// node_modules/@microsoft/sig
 var BASE_URL = "http://localhost:5000/api";
 var BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 var ADMIN_EMAIL = "test@email.com";
@@ -69,7 +69,7 @@ var ADMIN_PASSWORD = "testPassword123@";
 var USER_EMAIL = "test2@hotmail.com";
 var USER_PASSWORD = "testPassword123@";
 
-// public/scripts/ts/auth.ts
+// node_modules/@microsoft/s
 async function login(email, password) {
   const res = await postData(`${BASE_URL}/auth/login`, {
     emailAddress: email,
@@ -95,15 +95,22 @@ async function register(firstName, lastName, email, password) {
   }
 }
 
-// public/scripts/ts/index.ts
+// node_modules/@microsoft/si
 var SetEventListeners = function() {
   document.getElementById("toggleToRegisterButton").addEventListener("click", toggleForm);
   document.getElementById("toggleToLoginButton").addEventListener("click", toggleForm);
   document.getElementById("loginButton").addEventListener("click", loginInternal);
   window.addEventListener("keyup", function(event) {
+    const loginScreen = document.getElementById("loginScreen");
+    const registerScreen = document.getElementById("registerScreen");
     if (event.key === "Enter") {
-      event.preventDefault();
-      loginInternal();
+      if (loginScreen.style.display === "none") {
+        event.preventDefault();
+        registerInternal();
+      } else {
+        event.preventDefault();
+        loginInternal();
+      }
     }
   });
   document.getElementById("registerButton").addEventListener("click", registerInternal);

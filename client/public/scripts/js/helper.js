@@ -2,7 +2,7 @@ var __require = (id) => {
   return import.meta.require(id);
 };
 
-// public/scripts/ts/helper.ts
+// node_modules/@microsoft/sig
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",

@@ -2,7 +2,7 @@ var __require = (id) => {
   return import.meta.require(id);
 };
 
-// public/scripts/ts/config.ts
+// node_modules/@microsoft/sig
 var BASE_URL = "http://localhost:5000/api";
 var BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 var ADMIN_EMAIL = "test@email.com";
@@ -10,7 +10,7 @@ var ADMIN_PASSWORD = "testPassword123@";
 var USER_EMAIL = "test2@hotmail.com";
 var USER_PASSWORD = "testPassword123@";
 
-// public/scripts/ts/payment.ts
+// node_modules/@microsoft/sign
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("invoiceId");

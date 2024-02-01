@@ -2,7 +2,7 @@ var __require = (id) => {
   return import.meta.require(id);
 };
 
-// public/scripts/ts/config.ts
+// node_modules/@microsoft/sig
 var BASE_URL = "http://localhost:5000/api";
 var BASE_URL_SIGNALR = "http://localhost:5000/auctionHub";
 var ADMIN_EMAIL = "test@email.com";
