@@ -7,7 +7,6 @@
 - [Project Setup](#project-setup)
   - [Run The Client App](#run-the-client-app)
   - [Setup the API](#setup-the-api)
-    - [Using Dotnet](#using-the-dotnet-runtime)
 - [Project Structure](#project-structure)
 - [Run the Client App](#run-the-client-app)
 - [Usage](#usage)
@@ -24,6 +23,10 @@
 A case study for Lights On Heights. An auction chat application where users can join rooms, chat, and bid on auctions.
 
 The API uses [.NET](https://dotnet.microsoft.com/en-us/learn/dotnet/what-is-dotnet), [SignalR](https://learn.microsoft.com/en-gb/aspnet/core/signalr/introduction?view=aspnetcore-8.0), [RabbitMQ](https://rabbitmq.com/) & [MassTransit](https://masstransit.io/). The database used is [Postgres](https://www.postgresql.org/). The repo includes a simple client application used to access the chat interface. The client was built with TypeScript, [Express](https://expressjs.com/) and [Bun](https://bun.sh).
+
+If you are interested in reading the code, I suggest reading on [Vertical Slice Architecture](https://code-maze.com/vertical-slice-architecture-aspnet-core/) first. Then take a look at the configuration in Program.cs. After that, follow requests from the controller to their end. That should give you a good understanding of the application.
+
+Also read [BehindTheScenes.md](./BehindTheScenes.md)
 
 ## Requirements
 
@@ -102,22 +105,6 @@ cd AuctionApp
    ```
 
 4. You can access the Swagger API documentation at <http://localhost:5000/swagger/index.html>
-
-#### Using the dotnet runtime
-
-If you have the dotnet runtime installed, you can use that to run the application.
-
-1. Navigate to the host directory
-
-   ```bash
-   cd src/AuctionApp.Host/
-   ```
-
-2. Run the application
-
-   ```bash
-   dotnet run
-   ```
 
 ## Project Structure
 
@@ -219,6 +206,10 @@ You'll notice that on leaving a room and rejoining, any previous messages will b
 ### Use Redis to store connection info
 
 To scale when using SignalR, developers use Redis to store info on connections or groups, instead of storing that info in memory (like I did in this application). When the Redis cluster is distributed, users would still be able to access their groups despite being connected to different servers, as each server can query Redis.
+
+### Add Comprehensive End-to-End tests
+
+for testing websockets connections, chat, etc.
 
 ## Links
 
