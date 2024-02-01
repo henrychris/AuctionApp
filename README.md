@@ -137,8 +137,7 @@ The project uses a mix of Vertical Slice Architecture and Clean Architecture. Co
 
 ### More On Structure
 
-- **Application**: contains the features and controllers. A feature consists of its requests, responses, controller,
-  validators and handlers.
+- **Application**: contains the features. A feature consists of its requests, responses,validators and handlers.
 - **Common**: a set of files shared across all modules.
 - **Domain**: contains core domain entities, constants, enums and business logic.
 - **Infrastructure**: contains external concerns like a database or external APIs. Any interfaces defined in the
