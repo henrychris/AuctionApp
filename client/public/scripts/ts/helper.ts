@@ -1,4 +1,8 @@
-import type { ApiResponse, UserAuthResponse } from "./config.js";
+import type {
+  ApiErrorResponse,
+  ApiResponse,
+  UserAuthResponse,
+} from "./config.js";
 
 export async function postData(
   url = "",
@@ -70,4 +74,10 @@ export async function GetDataWithToken(url = "", token: string) {
   });
 
   return response.json();
+}
+
+export function GetErrors(error: any): string {
+  const err = error as unknown as ApiErrorResponse;
+
+  return err.errors.map((e) => e.description).join("\n");
 }

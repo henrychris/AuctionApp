@@ -19,3 +19,14 @@ export interface UserAuthResponse {
   role: string;
   accessToken: string;
 }
+
+export interface ErrorDetail {
+  code: string;
+  description: string;
+}
+
+export interface ApiErrorResponse {
+  success: boolean;
+  message: string;
+  errors: ErrorDetail[];
+}

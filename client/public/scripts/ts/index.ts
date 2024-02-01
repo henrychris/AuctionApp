@@ -70,6 +70,7 @@ async function loginInternal() {
     }
   } catch (error) {
     console.error("Error during login:", error);
+    
   }
 }
 
