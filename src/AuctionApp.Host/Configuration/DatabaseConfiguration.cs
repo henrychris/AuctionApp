@@ -83,14 +83,15 @@ public static class DatabaseConfiguration
             // so we can delete and recreate the database on startup.
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
+            await SeedRoles(roleManager);
+            return;
         }
-        else
-        {
-            // this is a test application, so we can delete and recreate the database on startup.
-            // a real application could apply migrations here, or do nothing.
-            await context.Database.EnsureDeletedAsync();
-            await context.Database.EnsureCreatedAsync();
-        }
+
+        // At this point, this is not an integration test.
+        // but since this isn't a production application, so we can delete and recreate the database on startup.
+        // a real application could apply migrations here, or do nothing.
+        await context.Database.EnsureDeletedAsync();
+        await context.Database.EnsureCreatedAsync();
 
         await SeedRoles(roleManager);
         await SeedUsers(userManager);
