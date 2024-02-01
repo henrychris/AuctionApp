@@ -7,6 +7,7 @@ using AuctionApp.Application.Features.Auctions.GetSingleAuction;
 using AuctionApp.Application.Features.Auth;
 using AuctionApp.Application.Features.Auth.Register;
 using AuctionApp.Application.Features.Invoices.CreateInvoice;
+using AuctionApp.Application.Features.Rooms.CreateRoom;
 using AuctionApp.Domain.Constants;
 using AuctionApp.Host;
 using AuctionApp.Infrastructure.Data;
@@ -95,5 +96,13 @@ public class IntegrationTest
         var auctionRes = await response.Content.ReadFromJsonAsync<ApiResponse<GetAuctionResponse>>();
         var auction = auctionRes!.Data;
         return auction!;
+    }
+
+    protected async Task<CreateRoomResponse> CreateRoomAsync(CreateRoomRequest createRoomRequest)
+    {
+        var response = await TestClient.PostAsJsonAsync("Rooms", createRoomRequest);
+        var roomRes = await response.Content.ReadFromJsonAsync<ApiResponse<CreateRoomResponse>>();
+        var room = roomRes!.Data;
+        return room!;
     }
 }
