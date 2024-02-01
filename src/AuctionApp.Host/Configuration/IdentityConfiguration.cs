@@ -12,9 +12,9 @@ public static class IdentityConfiguration
         services.AddIdentity<User, IdentityRole>(options =>
                 {
                     // Password settings
-                    options.Password.RequireDigit = true;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequireNonAlphanumeric = true;
+                    // options.Password.RequireDigit = true;
+                    // options.Password.RequireUppercase = true;
+                    // options.Password.RequireNonAlphanumeric = true;
                     options.Password.RequiredLength = 6;
 
                     // Lockout settings.
