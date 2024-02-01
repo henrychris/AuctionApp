@@ -31,10 +31,7 @@ Also read [BehindTheScenes.md](./BehindTheScenes.md)
 ## Requirements
 
 Ideally, you would need to have bun installed to use the client application. You can install it [here](https://bun.sh/docs/installation).
-
-If you don't use Linux, you can use [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) instead.
-
-To the run the API, you will need either [Docker](https://docs.docker.com/engine/install/) or the dotnet [runtime](https://dotnet.microsoft.com/en-us/download) installed.
+To the run the API, you will need to have [Docker](https://docs.docker.com/engine/install/) installed.
 
 ## Project Setup
 
@@ -66,22 +63,10 @@ cd AuctionApp
    bun install
    ```
 
-   **OR**
-
-   ```bash
-   npm install
-   ```
-
 3. Run the client application
 
    ```bash
    bun start
-   ```
-
-   **OR**
-
-   ```bash
-   npm start
    ```
 
 4. You can access the client application at <http://localhost:3000>
@@ -209,7 +194,7 @@ To scale when using SignalR, developers use Redis to store info on connections o
 
 ### Add Comprehensive End-to-End tests
 
-for testing websockets connections, chat, etc.
+For testing websockets connections, chat, etc. This would take a lot of time to setup. I did not have the time.
 
 ## Links
 
