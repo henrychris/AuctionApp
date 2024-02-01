@@ -24,7 +24,7 @@
       - "15692:15692"
 
   database:
-    image: "postgres:12.9"
+    image: "postgres:16.1"
     container_name: auctionapp.database
     ports:
       - "5432:5432"
