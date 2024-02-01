@@ -11,6 +11,12 @@ namespace AuctionApp.Host.Configuration;
 
 public static class AuthConfiguration
 {
+    /// <summary>
+    /// Sets up the authentication middleware.
+    /// This application uses JWT authentication.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <exception cref="InvalidOperationException"></exception>
     public static void SetupAuthentication(this IServiceCollection services)
     {
         using var scope = services.BuildServiceProvider().CreateScope();

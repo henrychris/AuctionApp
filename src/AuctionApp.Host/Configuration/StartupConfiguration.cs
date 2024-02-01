@@ -17,7 +17,9 @@ public static class StartupConfiguration
     {
         services.AddControllers();
         services.AddRouting(options => options.LowercaseUrls = true);
+
         // validation is performed using FluentValidation and a specific response body is used.
+        // the custom filter is CustomValidationFilter.cs
         services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
     }
 
@@ -26,6 +28,10 @@ public static class StartupConfiguration
         services.AddScoped<CustomValidationFilter>();
     }
 
+    /// <summary>
+    /// Configure the JSON options for the application.
+    /// </summary>
+    /// <param name="services"></param>
     public static void SetupJsonOptions(this IServiceCollection services)
     {
         services.Configure<JsonOptions>(jsonOptions =>
@@ -39,6 +45,10 @@ public static class StartupConfiguration
         });
     }
 
+    /// <summary>
+    /// Add MediatR handlers and FluentValidation validators to the DI container.
+    /// </summary>
+    /// <param name="services"></param>
     public static void AddFeatures(this IServiceCollection services)
     {
         var assemblyToScan = typeof(LoginRequest).Assembly;

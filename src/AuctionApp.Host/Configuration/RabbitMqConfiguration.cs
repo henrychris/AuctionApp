@@ -11,6 +11,10 @@ namespace AuctionApp.Host.Configuration;
 
 public static class RabbitMqConfiguration
 {
+    /// <summary>
+    /// Configure the RabbitMq message bus with MassTransit.
+    /// </summary>
+    /// <param name="services"></param>
     public static void AddMessaging(this IServiceCollection services)
     {
         var rabbitMqSettings = services.BuildServiceProvider().GetService<IOptionsSnapshot<RabbitMqSettings>>()?.Value;
@@ -40,21 +44,6 @@ public static class RabbitMqConfiguration
                     cfg.ConfigureEndpoints(context);
                 });
             }
-
-            // else
-            // {
-            //     x.UsingRabbitMq((context, cfg) =>
-            //     {
-            //         cfg.Host(new Uri(rabbitMqSettings?.Host!), "/",
-            //             h =>
-            //             {
-            //                 h.Username(rabbitMqSettings!.Username);
-            //                 h.Password(rabbitMqSettings!.Password);
-            //             });
-            //
-            //         cfg.ConfigureEndpoints(context);
-            //     });
-            // }
         });
     }
 }

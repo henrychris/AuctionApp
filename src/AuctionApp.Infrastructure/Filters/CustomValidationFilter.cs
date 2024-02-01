@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AuctionApp.Infrastructure.Filters;
 
+/// <summary>
+/// A custom validation filter used to keep validation errors consistent
+/// </summary>
 public class CustomValidationFilter : IActionFilter
 {
     public void OnActionExecuting(ActionExecutingContext context)

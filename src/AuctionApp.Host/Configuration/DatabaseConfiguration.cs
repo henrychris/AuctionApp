@@ -22,6 +22,11 @@ public static class DatabaseConfiguration
         return context.Database.ProviderName == IN_MEMORY_PROVIDER_NAME;
     }
 
+    /// <summary>
+    /// Sets up the database context for the application.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services"></param>
     public static void SetupDatabase<T>(this IServiceCollection services) where T : DbContext
     {
         var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -36,7 +41,7 @@ public static class DatabaseConfiguration
         // else if (env == prod), use postgres production string
         else
         {
-            // when running integration tests
+            // when running integration tests don't add any settings.
             return;
         }
 
@@ -47,7 +52,11 @@ public static class DatabaseConfiguration
         });
     }
 
-
+    /// <summary>
+    /// Seed the database with data.
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
     public static async Task SeedDatabase(this WebApplication app)
     {
         var stopwatch = new Stopwatch();
@@ -70,11 +79,15 @@ public static class DatabaseConfiguration
 
         if (IsInMemoryDatabase(context))
         {
+            // if the database is in-memory, then this is an integration test,
+            // so we can delete and recreate the database on startup.
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
         }
         else
         {
+            // this is a test application, so we can delete and recreate the database on startup.
+            // a real application could apply migrations here, or do nothing.
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
         }
@@ -95,7 +108,10 @@ public static class DatabaseConfiguration
 
         var biddingRoom = new BiddingRoom
         {
-            Id = "biddingRoom1", AuctionId = "auction1", Status = RoomStatus.Open, Auction = auction
+            Id = "biddingRoom1",
+            AuctionId = "auction1",
+            Status = RoomStatus.Open,
+            Auction = auction
         };
         await context.BiddingRooms.AddAsync(biddingRoom);
         Console.WriteLine("Bidding room seeding complete.");

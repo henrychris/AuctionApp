@@ -1,5 +1,9 @@
 namespace AuctionApp.Infrastructure.Middleware;
 
+/// <summary>
+/// Middleware to add the access token to the header before authentication middleware runs
+/// for SignalR connections.
+/// </summary>
 public class SignalRMiddleware
 {
     private readonly RequestDelegate _next;

@@ -4,6 +4,11 @@ using AuctionApp.Application.ApiResponses;
 
 namespace AuctionApp.Infrastructure.Middleware;
 
+/// <summary>
+/// A custom exception middleware used to keep exception responses and logs consistent
+/// </summary>
+/// <param name="next"></param>
+/// <param name="logger"></param>
 public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
 {
     public async Task InvokeAsync(HttpContext httpContext)

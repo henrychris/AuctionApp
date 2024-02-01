@@ -7,11 +7,16 @@ namespace AuctionApp.Host.Configuration;
 
 public static class IdentityConfiguration
 {
+    /// <summary>
+    /// Configure the Microsoft Identity framework
+    /// </summary>
+    /// <param name="services"></param>
     public static void SetupMsIdentity(this IServiceCollection services)
     {
         services.AddIdentity<User, IdentityRole>(options =>
                 {
                     // Password settings
+                    // i made these weak for testing purposes.
                     options.Password.RequireDigit = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
