@@ -18,9 +18,17 @@ function SetEventListeners() {
     .addEventListener("click", loginInternal);
 
   window.addEventListener("keyup", function (event) {
+    const loginScreen = document.getElementById("loginScreen")!;
+    const registerScreen = document.getElementById("registerScreen")!;
+    
     if (event.key === "Enter") {
-      event.preventDefault();
-      loginInternal();
+      if (loginScreen.style.display === "none") {
+        event.preventDefault();
+        registerInternal();
+      } else {
+        event.preventDefault();
+        loginInternal();
+      }
     }
   });
 
