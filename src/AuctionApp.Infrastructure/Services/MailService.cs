@@ -124,7 +124,7 @@ public class MailService(ILogger<MailService> logger, IOptionsSnapshot<MailSetti
             streamReader.Close();
             return mailTemplate;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             logger.LogError("Couldn't retrieve email template.");
             throw;
